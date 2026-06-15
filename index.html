@@ -1,0 +1,1960 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+  <meta name="theme-color" content="#f5ebcc">
+  <title>🇭🇰🇲🇴 港澳之旅</title>
+
+  <style>
+    :root {
+      --paper: #fbfaf6;
+      --paper-deep: #f4ecdc;
+      --card: rgba(255, 255, 255, 0.95);
+      --cream: #f7efd9;
+      --ink: #27231f;
+      --muted: #746d63;
+      --line: #ded5c7;
+      --accent: #c95643;
+      --accent-soft: #fff4ef;
+      --green: #49765d;
+      --blue: #557a91;
+      --shadow: 0 14px 40px rgba(55, 46, 35, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(38, 36, 33, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(38, 36, 33, 0.025) 1px, transparent 1px),
+        var(--paper);
+      background-size: 24px 24px;
+      font-family:
+        "Noto Sans SC",
+        "PingFang SC",
+        "Microsoft YaHei",
+        system-ui,
+        -apple-system,
+        sans-serif;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    .app {
+      width: min(1180px, calc(100% - 28px));
+      margin: 22px auto 72px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 25px;
+      border: 1px solid #e7d7a5;
+      border-radius: 22px;
+      background: var(--cream);
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 3px;
+      height: 62px;
+      background: var(--accent);
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .eyebrow {
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2 {
+      font-family:
+        "Songti SC",
+        "STSong",
+        "SimSun",
+        serif;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 48px);
+      letter-spacing: 0.02em;
+    }
+
+    .hero-description {
+      max-width: 720px;
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .date-card {
+      flex: 0 0 auto;
+      min-width: 245px;
+      padding: 14px 15px;
+      border: 1px solid rgba(113, 91, 38, 0.2);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .date-card strong,
+    .date-card span {
+      display: block;
+    }
+
+    .date-card strong {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .date-card span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 34px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #aaa49c;
+    }
+
+    .status-pill.online .status-dot {
+      background: #2d9b62;
+      box-shadow: 0 0 0 4px rgba(45, 155, 98, 0.12);
+    }
+
+    .status-pill.saving .status-dot {
+      background: #d89a32;
+      box-shadow: 0 0 0 4px rgba(216, 154, 50, 0.12);
+    }
+
+    .status-pill.error .status-dot {
+      background: #c84534;
+      box-shadow: 0 0 0 4px rgba(200, 69, 52, 0.12);
+    }
+
+    .nav-shell {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      margin: 16px 0 22px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(251, 250, 246, 0.9);
+      box-shadow: 0 8px 25px rgba(46, 41, 33, 0.06);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-tabs {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .nav-button {
+      min-width: 0;
+      min-height: 44px;
+      padding: 11px 8px;
+      border: 0;
+      border-radius: 11px;
+      background: transparent;
+      color: var(--muted);
+      white-space: nowrap;
+      transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .nav-button:hover {
+      color: var(--ink);
+      background: #f0ece4;
+    }
+
+    .nav-button.active {
+      color: #fff;
+      background: var(--ink);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+    }
+
+    .view {
+      display: none;
+      animation: viewIn 0.22s ease;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes viewIn {
+      from {
+        opacity: 0.2;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .section-header p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 4px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: 0 8px 28px rgba(48, 42, 33, 0.045);
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 14px;
+      font-size: 18px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .notice {
+      padding: 13px 14px;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      background: #fff7f4;
+      color: #624d47;
+      line-height: 1.75;
+    }
+
+    .button {
+      min-height: 42px;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .button:hover {
+      background: #f4f1eb;
+    }
+
+    .button.primary {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .button.primary:hover {
+      opacity: 0.9;
+    }
+
+    .button.danger {
+      border-color: #ebc2ba;
+      background: #fff8f6;
+      color: #a73d2e;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      min-height: 42px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      outline: none;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .field textarea {
+      min-height: 112px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: #a89e90;
+      box-shadow: 0 0 0 3px rgba(133, 121, 103, 0.1);
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .route-place:last-child {
+      text-align: right;
+    }
+
+    .route-place strong,
+    .route-place span {
+      display: block;
+    }
+
+    .route-place strong {
+      font-size: 18px;
+    }
+
+    .route-place span {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .route-arrow {
+      position: relative;
+      width: 80px;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .route-arrow::after {
+      content: "";
+      position: absolute;
+      top: -3px;
+      right: -1px;
+      border-top: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      border-left: 7px solid var(--line);
+    }
+
+    .key-values {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 16px;
+      margin: 0;
+    }
+
+    .key-values div {
+      min-width: 0;
+      padding-top: 9px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .key-values dt {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .key-values dd {
+      margin: 3px 0 0;
+      overflow-wrap: anywhere;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .check-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #fff;
+    }
+
+    .check-item input {
+      margin-top: 4px;
+      accent-color: var(--accent);
+    }
+
+    .check-item.done span {
+      color: #aaa49b;
+      text-decoration: line-through;
+    }
+
+    .app-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .app-item {
+      display: grid;
+      grid-template-columns: 54px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #fff;
+    }
+
+    .app-icon {
+      display: grid;
+      width: 54px;
+      height: 54px;
+      overflow: hidden;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--paper-deep);
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+    }
+
+    .app-logo {
+      width: 46px;
+      height: 46px;
+      justify-self: center;
+      flex: 0 0 46px;
+      object-fit: contain;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #f7f4ed;
+    }
+
+    .app-item strong,
+    .app-item small {
+      display: block;
+    }
+
+    .app-item small {
+      margin-top: 3px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .day-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .day-card::after {
+      content: attr(data-region);
+      position: absolute;
+      right: 14px;
+      bottom: -13px;
+      color: rgba(35, 33, 30, 0.04);
+      font-size: 70px;
+      font-weight: 900;
+      pointer-events: none;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 15px;
+      margin-bottom: 16px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 7px;
+      bottom: 7px;
+      left: 16px;
+      width: 1px;
+      background: var(--line);
+    }
+
+    .timeline-item {
+      position: relative;
+      z-index: 1;
+      padding-left: 44px;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      top: 4px;
+      left: 9px;
+      width: 15px;
+      height: 15px;
+      border: 4px solid #fff;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 1px var(--line);
+    }
+
+    .timeline-item strong {
+      display: block;
+    }
+
+    .timeline-item p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .expense-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .traveler-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    .traveler-card {
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 10px 30px rgba(48, 42, 33, 0.05);
+    }
+
+    .traveler-card[data-traveler="traveler_a"] {
+      border-top: 5px solid var(--accent);
+    }
+
+    .traveler-card[data-traveler="traveler_b"] {
+      border-top: 5px solid var(--blue);
+    }
+
+    .traveler-header {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 16px;
+    }
+
+    .avatar-shell {
+      position: relative;
+      flex: 0 0 auto;
+      width: 76px;
+      height: 76px;
+    }
+
+    .avatar {
+      width: 76px;
+      height: 76px;
+      object-fit: cover;
+      border: 3px solid #fff;
+      border-radius: 15px;
+      background: var(--paper-deep);
+      box-shadow: 0 0 0 1px var(--line);
+    }
+
+    .avatar-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      border: 3px solid #fff;
+      border-radius: 15px;
+      background: var(--paper-deep);
+      box-shadow: 0 0 0 1px var(--line);
+      font-family: serif;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .traveler-name {
+      min-width: 0;
+    }
+
+    .traveler-name h3 {
+      margin: 0 0 4px;
+      font-size: 20px;
+    }
+
+    .traveler-name p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .currency-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .summary-box {
+      min-width: 0;
+      padding: 11px;
+      border: 1px solid #ece6da;
+      border-radius: 12px;
+      background: #f8f5ee;
+    }
+
+    .summary-box span,
+    .summary-box strong {
+      display: block;
+    }
+
+    .summary-box span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .summary-box strong {
+      overflow: hidden;
+      margin-top: 4px;
+      font-size: 17px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .combined-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .combined-summary .summary-box {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .combined-summary .summary-box span {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .expense-form {
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #faf8f3;
+    }
+
+    .expense-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .expense-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .expense-date {
+      color: var(--muted);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .expense-info {
+      min-width: 0;
+    }
+
+    .expense-info strong,
+    .expense-info small {
+      display: block;
+    }
+
+    .expense-info strong {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .expense-info small {
+      margin-top: 3px;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .expense-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .expense-amount {
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .delete-button {
+      min-width: 36px;
+      min-height: 36px;
+      padding: 5px;
+      border: 0;
+      border-radius: 8px;
+      background: transparent;
+      color: #ac3f30;
+    }
+
+    .delete-button:hover {
+      background: #fff0ec;
+    }
+
+    .empty-state {
+      padding: 24px 14px;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .reminder-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .reminder-list li {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      line-height: 1.6;
+    }
+
+    .lined-notes {
+      min-height: 340px !important;
+      padding: 3px 12px !important;
+      border: 0 !important;
+      border-left: 3px solid var(--accent) !important;
+      border-radius: 0 !important;
+      background:
+        linear-gradient(#fff 31px, #ece6dc 32px) !important;
+      background-size: 100% 32px !important;
+      line-height: 32px !important;
+      box-shadow: none !important;
+    }
+
+    .footer {
+      margin-top: 25px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .nav-tabs {
+        display: flex;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+
+      .nav-tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .nav-button {
+        flex: 0 0 auto;
+        min-width: 92px;
+      }
+
+      .traveler-columns,
+      .app-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero-top,
+      .section-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .date-card {
+        width: 100%;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wide {
+        grid-column: auto;
+      }
+
+      .field-grid,
+      .check-list,
+      .reminder-list {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .app {
+        width: min(100% - 18px, 1180px);
+        margin-top: 10px;
+      }
+
+      .hero,
+      .card,
+      .traveler-card {
+        padding: 16px;
+      }
+
+      .status-row {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .route-arrow {
+        width: 42px;
+      }
+
+      .route-place strong {
+        font-size: 15px;
+      }
+
+      .key-values,
+      .currency-summary,
+      .combined-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .app-item {
+        grid-template-columns: 54px 1fr;
+      }
+
+      .app-item .badge {
+        grid-column: 2;
+        justify-self: start;
+      }
+
+      .expense-item {
+        grid-template-columns: 1fr auto;
+      }
+
+      .expense-date {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+    <header class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">Personal Travel Notebook</div>
+          <h1>🇭🇰🇲🇴 港澳之旅</h1>
+          <p class="hero-description">
+            2026.06.30 — 07.03<br>
+            深圳 → 香港 → 澳门 → 珠海 → 广州
+          </p>
+        </div>
+
+        <div class="date-card">
+          <strong>2026.06.30 — 2026.07.03</strong>
+          <span>6 月 30 日、7 月 1 日：🇭🇰 香港</span>
+          <span>7 月 1 日晚上、7 月 2 日：🇲🇴 澳门</span>
+          <span>7 月 2 日晚上：前往珠海</span>
+          <span>7 月 3 日清晨：🌅 珠海看日出</span>
+          <span>7 月 3 日中午：珠海前往广州</span>
+        </div>
+      </div>
+
+      <div class="status-row">
+        <span id="databaseStatus" class="status-pill saving" role="status" aria-live="polite">
+          <span class="status-dot"></span>
+          <span id="databaseStatusText">正在连接数据库</span>
+        </span>
+
+        <button id="exportButton" class="button" type="button">
+          导出本地备份
+        </button>
+      </div>
+    </header>
+
+    <nav class="nav-shell" aria-label="旅行模块导航">
+      <div class="nav-tabs">
+        <button class="nav-button active" data-view="transport" type="button">交通</button>
+        <button class="nav-button" data-view="prepare" type="button">准备</button>
+        <button class="nav-button" data-view="stay" type="button">住宿</button>
+        <button class="nav-button" data-view="footprint" type="button">足迹</button>
+        <button class="nav-button" data-view="expense" type="button">开支记录</button>
+        <button class="nav-button" data-view="notice" type="button">注意事项</button>
+      </div>
+    </nav>
+
+    <section id="transport" class="view active">
+      <div class="section-header">
+        <div>
+          <h2>交通</h2>
+          <p>火车、口岸、跨境巴士和城市间移动集中整理。</p>
+        </div>
+        <span class="badge">深圳 → 香港 → 澳门 → 珠海 → 广州</span>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3 class="card-title">上海 → 深圳 <span class="badge">T101</span></h3>
+          <div class="route">
+            <div class="route-place">
+              <strong>上海南站</strong>
+              <span>2026-06-29 12:30</span>
+            </div>
+            <div class="route-arrow"></div>
+            <div class="route-place">
+              <strong>深圳东站</strong>
+              <span>2026-06-30 07:28</span>
+            </div>
+          </div>
+          <dl class="key-values">
+            <div><dt>车次</dt><dd>T101</dd></div>
+            <div><dt>历时</dt><dd>18 小时 58 分</dd></div>
+            <div><dt>席位</dt><dd>硬座</dd></div>
+            <div><dt>座位</dt><dd>03 车 062 号</dd></div>
+            <div><dt>票价</dt><dd>CNY 227</dd></div>
+          </dl>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">长沙 → 深圳 <span class="badge">K9217</span></h3>
+          <div class="route">
+            <div class="route-place">
+              <strong>长沙站</strong>
+              <span>2026-06-29 21:08</span>
+            </div>
+            <div class="route-arrow"></div>
+            <div class="route-place">
+              <strong>深圳站</strong>
+              <span>2026-06-30 06:46</span>
+            </div>
+          </div>
+          <dl class="key-values">
+            <div><dt>车次</dt><dd>K9217</dd></div>
+            <div><dt>历时</dt><dd>9 小时 38 分</dd></div>
+            <div><dt>席位</dt><dd>硬卧</dd></div>
+            <div><dt>铺位</dt><dd>08 车 14 号下铺</dd></div>
+            <div><dt>票价</dt><dd>CNY 235</dd></div>
+          </dl>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">深圳 → 香港</h3>
+          <dl class="key-values">
+            <div><dt>口岸</dt><dd>罗湖口岸入境</dd></div>
+            <div><dt>市区交通</dt><dd>乘东铁线进入香港市区</dd></div>
+            <div><dt>参考交通费</dt><dd>HKD 45</dd></div>
+          </dl>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">香港 → 澳门</h3>
+          <dl class="key-values">
+            <div><dt>时间</dt><dd>2026-07-01 晚上</dd></div>
+            <div><dt>交通</dt><dd>港珠澳大桥穿梭巴士</dd></div>
+            <div><dt>参考票价</dt><dd>HKD 65</dd></div>
+            <div>
+              <dt>购票网址</dt>
+              <dd><a href="https://www.hzmbus.com/" target="_blank" rel="noreferrer">hzmbus.com</a></dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">澳门 → 珠海</h3>
+          <dl class="key-values">
+            <div><dt>时间</dt><dd>2026-07-02 晚上</dd></div>
+            <div><dt>口岸</dt><dd>青茂口岸</dd></div>
+          </dl>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">珠海 → 广州</h3>
+          <dl class="key-values">
+            <div><dt>时间</dt><dd>2026-07-03 中午</dd></div>
+            <div><dt>交通方式</dt><dd>城际铁路或动车</dd></div>
+            <div><dt>提醒</dt><dd>提前通过铁路 12306 购票</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section id="prepare" class="view">
+      <div class="section-header">
+        <div>
+          <h2>准备</h2>
+          <p>清单勾选状态保存在当前浏览器，刷新后仍会保留。</p>
+        </div>
+        <span class="badge">证件 · 用品 · 必备 APP</span>
+      </div>
+
+      <div class="grid">
+        <article class="card wide">
+          <h3 class="card-title">出行准备清单</h3>
+          <div id="checkList" class="check-list">
+            <label class="check-item"><input type="checkbox" data-check-key="id-card"><span>身份证</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="permit"><span>港澳通行证</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="endorsement"><span>有效签注</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="hkd-cash"><span>少量港币现金</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="bank-card"><span>银行卡</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="phone"><span>手机</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="charger"><span>充电器</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="cable"><span>充电线</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="power-bank"><span>充电宝</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="adapter"><span>英标转换插头</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="roaming"><span>港澳流量卡或漫游套餐</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="octopus"><span>八达通或其他交通支付方式</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="umbrella"><span>雨伞或轻便雨衣</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="water"><span>饮用水</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="medicine"><span>常用药</span></label>
+            <label class="check-item"><input type="checkbox" data-check-key="tissue"><span>纸巾和湿巾</span></label>
+          </div>
+        </article>
+
+        <article class="card wide">
+          <h3 class="card-title">必备 APP</h3>
+          <div class="app-list">
+            <div class="app-item">
+              <img
+                class="app-logo"
+                src="./assets/Google-Maps-Logo-1.png"
+                alt="Google Maps 图标"
+                loading="lazy"
+              >
+              <div>
+                <strong>Google Maps</strong>
+                <small>用途：香港、澳门、珠海和广州步行导航及公共交通查询</small>
+              </div>
+              <span class="badge">导航</span>
+            </div>
+
+            <div class="app-item">
+              <img
+                class="app-logo"
+                src="./assets/MTR_LOGO.jpg"
+                alt="MTR Mobile 图标"
+                loading="lazy"
+              >
+              <div>
+                <strong>MTR Mobile</strong>
+                <small>用途：香港港铁线路、车费、车站和到站信息</small>
+              </div>
+              <span class="badge">香港</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="stay" class="view">
+      <div class="section-header">
+        <div>
+          <h2>住宿</h2>
+          <p>住宿信息自动保存到当前浏览器。</p>
+        </div>
+        <span class="badge">香港 · 澳门 · 珠海</span>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h3 class="card-title">香港住宿</h3>
+          <div class="field-grid">
+            <label class="field">酒店名称<input id="hongKongHotelName" type="text" value="香港阿山龙祥旅馆" data-storage-key="stay.hk.name"></label>
+            <label class="field">入住日期<input id="hongKongHotelDate" type="date" value="2026-06-30" data-storage-key="stay.hk.date"></label>
+            <label class="field full">详细地址<input id="hongKongHotelAddress" type="text" placeholder="粘贴完整地址" data-storage-key="stay.hk.address"></label>
+            <label class="field">联系电话<input id="hongKongHotelPhone" type="text" placeholder="+852 ..." data-storage-key="stay.hk.phone"></label>
+            <label class="field">订单号<input id="hongKongHotelOrder" type="text" placeholder="订单号" data-storage-key="stay.hk.order"></label>
+            <label class="field full">入住备注<textarea id="hongKongHotelMemo" placeholder="前台位置、最晚入住时间、押金、行李寄存等" data-storage-key="stay.hk.memo"></textarea></label>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">澳门住宿</h3>
+          <div class="field-grid">
+            <label class="field">酒店名称<input id="macauHotelName" type="text" placeholder="澳门酒店名称" data-storage-key="stay.mo.name"></label>
+            <label class="field">入住日期<input id="macauHotelDate" type="date" value="2026-07-01" data-storage-key="stay.mo.date"></label>
+            <label class="field full">详细地址<input id="macauHotelAddress" type="text" placeholder="粘贴完整地址" data-storage-key="stay.mo.address"></label>
+            <label class="field">联系电话<input id="macauHotelPhone" type="text" placeholder="+853 ..." data-storage-key="stay.mo.phone"></label>
+            <label class="field">订单号<input id="macauHotelOrder" type="text" placeholder="订单号" data-storage-key="stay.mo.order"></label>
+            <label class="field full">入住备注<textarea id="macauHotelMemo" placeholder="入住时间、交通、行李寄存等" data-storage-key="stay.mo.memo"></textarea></label>
+          </div>
+        </article>
+
+        <article class="card wide">
+          <h3 class="card-title">珠海住宿或休息地点</h3>
+          <div class="field-grid">
+            <label class="field">住宿或休息地点名称<input id="zhuhaiStayName" type="text" placeholder="酒店、青旅或其他休息地点" data-storage-key="stay.zh.name"></label>
+            <label class="field">日期<input id="zhuhaiStayDate" type="date" value="2026-07-02" data-storage-key="stay.zh.date"></label>
+            <label class="field full">详细地址<input id="zhuhaiStayAddress" type="text" placeholder="填写地址和前往日出地点的交通方式" data-storage-key="stay.zh.address"></label>
+            <label class="field">联系电话<input id="zhuhaiStayPhone" type="text" placeholder="联系电话" data-storage-key="stay.zh.phone"></label>
+            <label class="field">订单号<input id="zhuhaiStayOrder" type="text" placeholder="订单号" data-storage-key="stay.zh.order"></label>
+            <label class="field full">日出安排<textarea id="zhuhaiSunrisePlan" placeholder="日出地点、出发时间、交通方式、备用方案" data-storage-key="stay.zh.sunrise"></textarea></label>
+            <label class="field full">行李寄存信息<textarea id="zhuhaiLuggageInfo" placeholder="寄存地点、营业时间、费用、取件提醒" data-storage-key="stay.zh.luggage"></textarea></label>
+            <label class="field full">其他备注<textarea id="zhuhaiStayMemo" placeholder="休息、洗漱、集合、返程前准备等" data-storage-key="stay.zh.memo"></textarea></label>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="footprint" class="view">
+      <div class="section-header">
+        <div>
+          <h2>足迹</h2>
+          <p>每天的临时备注会自动保存在当前浏览器。</p>
+        </div>
+        <span class="badge">4 天路线</span>
+      </div>
+
+      <div class="grid">
+        <article class="card day-card" data-region="HK">
+          <h3 class="card-title">6 月 30 日 · 香港</h3>
+          <div class="timeline">
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>抵达深圳</strong><p>整理行李、补水后前往罗湖口岸。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>罗湖口岸入境香港</strong><p>过关后确认东铁线方向和支付方式。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>乘东铁线进入市区</strong><p>进入香港市区后按天气和体力调整行程。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>香港第一日行程</strong><p>预留午休、避雨和补给时间。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>入住香港住宿</strong><p>核对次日香港行程和晚上去澳门路线。</p></div>
+          </div>
+          <label class="field full">临时备注<textarea data-storage-key="footprint.0630" placeholder="写下当天临时安排、排队情况或备选路线"></textarea></label>
+        </article>
+
+        <article class="card day-card" data-region="HK→MO">
+          <h3 class="card-title">7 月 1 日 · 香港 → 澳门</h3>
+          <div class="timeline">
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>香港第二日行程</strong><p>白天继续香港行程，留出取行李和过关时间。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>晚上前往港珠澳大桥香港口岸</strong><p>提前确认巴士购票、口岸交通和末班时间。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>乘穿梭巴士前往澳门</strong><p>保存车票、证件和住宿地址截图。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>抵达澳门并入住</strong><p>根据抵达时间决定是否安排夜间补给。</p></div>
+          </div>
+          <label class="field full">临时备注<textarea data-storage-key="footprint.0701" placeholder="记录香港口岸、巴士和澳门入住注意事项"></textarea></label>
+        </article>
+
+        <article class="card day-card" data-region="MO→ZH">
+          <h3 class="card-title">7 月 2 日 · 澳门 → 珠海</h3>
+          <div class="timeline">
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>澳门一日行程</strong><p>按天气和体力安排景点，注意防晒和补水。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>晚上通过口岸前往珠海</strong><p>计划使用青茂口岸，出发前确认开放时间。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>入住珠海或前往休息地点</strong><p>确认洗漱、充电和短休安排。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>确认日出时间和交通</strong><p>查好日出时间、天气、打车或公交方案。</p></div>
+          </div>
+          <label class="field full">临时备注<textarea data-storage-key="footprint.0702" placeholder="记录澳门到珠海口岸、住宿和日出准备"></textarea></label>
+        </article>
+
+        <article class="card day-card" data-region="ZH→GZ">
+          <h3 class="card-title">7 月 3 日 · 珠海 → 广州</h3>
+          <div class="timeline">
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>清晨前往日出地点</strong><p>提前出门，带水、纸巾和防蚊用品。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>观看珠海日出</strong><p>根据天气决定主方案或备用观景点。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>返回整理行李和休息</strong><p>检查证件、充电器和遗漏物品。</p></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><strong>中午乘车前往广州</strong><p>按车票时间前往车站，预留安检和进站时间。</p></div>
+          </div>
+          <label class="field full">临时备注<textarea data-storage-key="footprint.0703" placeholder="记录日出安排、返程车次和广州衔接"></textarea></label>
+        </article>
+      </div>
+    </section>
+
+    <section id="expense" class="view">
+      <div class="section-header">
+        <div>
+          <h2>开支记录</h2>
+          <p>仅双人开支记录保存到 Supabase，三种币种分别统计，不做汇率换算。</p>
+        </div>
+        <span class="badge">trip_id: hkmo-2026</span>
+      </div>
+
+      <div class="combined-summary" aria-label="双人合计">
+        <div class="summary-box"><span>两人人民币总计</span><strong data-total-sum="CNY">CNY 0</strong></div>
+        <div class="summary-box"><span>两人港币总计</span><strong data-total-sum="HKD">HKD 0</strong></div>
+        <div class="summary-box"><span>两人澳门币总计</span><strong data-total-sum="MOP">MOP 0</strong></div>
+      </div>
+
+      <div class="traveler-columns">
+        <article class="traveler-card" data-traveler="traveler_a">
+          <div class="traveler-header">
+            <div class="avatar-shell">
+              <img class="avatar" data-avatar="traveler_a" src="./assets/avatar-a.jpg" alt="旅行者 A 头像">
+              <div class="avatar-fallback" data-avatar-fallback="traveler_a">A</div>
+            </div>
+            <div class="traveler-name">
+              <h3 data-traveler-name="traveler_a">旅行者 A</h3>
+              <p>左栏仅显示 traveler_a 的记录</p>
+            </div>
+          </div>
+
+          <div class="currency-summary">
+            <div class="summary-box"><span>人民币合计</span><strong data-summary="traveler_a:CNY">CNY 0</strong></div>
+            <div class="summary-box"><span>港币合计</span><strong data-summary="traveler_a:HKD">HKD 0</strong></div>
+            <div class="summary-box"><span>澳门币合计</span><strong data-summary="traveler_a:MOP">MOP 0</strong></div>
+          </div>
+
+          <form class="expense-form" data-expense-form data-traveler="traveler_a">
+            <div class="field-grid">
+              <label class="field">日期<input name="spent_on" type="date" required></label>
+              <label class="field">分类<select name="category" required></select></label>
+              <label class="field">币种<select name="currency" required></select></label>
+              <label class="field">金额<input name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00" required></label>
+              <label class="field full">备注<input name="note" type="text" maxlength="120" placeholder="例如：东铁线、午餐、门票"></label>
+              <button class="button primary" type="submit">添加记录</button>
+            </div>
+          </form>
+
+          <div class="expense-list" data-expense-list="traveler_a"></div>
+        </article>
+
+        <article class="traveler-card" data-traveler="traveler_b">
+          <div class="traveler-header">
+            <div class="avatar-shell">
+              <img class="avatar" data-avatar="traveler_b" src="./assets/avatar-b.jpg" alt="旅行者 B 头像">
+              <div class="avatar-fallback" data-avatar-fallback="traveler_b">B</div>
+            </div>
+            <div class="traveler-name">
+              <h3 data-traveler-name="traveler_b">旅行者 B</h3>
+              <p>右栏仅显示 traveler_b 的记录</p>
+            </div>
+          </div>
+
+          <div class="currency-summary">
+            <div class="summary-box"><span>人民币合计</span><strong data-summary="traveler_b:CNY">CNY 0</strong></div>
+            <div class="summary-box"><span>港币合计</span><strong data-summary="traveler_b:HKD">HKD 0</strong></div>
+            <div class="summary-box"><span>澳门币合计</span><strong data-summary="traveler_b:MOP">MOP 0</strong></div>
+          </div>
+
+          <form class="expense-form" data-expense-form data-traveler="traveler_b">
+            <div class="field-grid">
+              <label class="field">日期<input name="spent_on" type="date" required></label>
+              <label class="field">分类<select name="category" required></select></label>
+              <label class="field">币种<select name="currency" required></select></label>
+              <label class="field">金额<input name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00" required></label>
+              <label class="field full">备注<input name="note" type="text" maxlength="120" placeholder="例如：港珠澳巴士、晚餐、购物"></label>
+              <button class="button primary" type="submit">添加记录</button>
+            </div>
+          </form>
+
+          <div class="expense-list" data-expense-list="traveler_b"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="notice" class="view">
+      <div class="section-header">
+        <div>
+          <h2>注意事项</h2>
+          <p>固定提醒保留在页面中，个人临时提醒保存在当前浏览器。</p>
+        </div>
+        <span class="badge">证件 · 天气 · 口岸 · 车票</span>
+      </div>
+
+      <div class="grid">
+        <article class="card wide">
+          <h3 class="card-title">固定提醒</h3>
+          <ul class="reminder-list">
+            <li>检查港澳通行证和签注</li>
+            <li>保存酒店地址离线截图</li>
+            <li>确认港珠澳大桥巴士时间</li>
+            <li>确认澳门和珠海口岸开放时间</li>
+            <li>提前查看珠海日出时间</li>
+            <li>关注雷暴、暴雨和台风信息</li>
+            <li>高温天气注意补水和防晒</li>
+            <li>确认珠海前往广州的车票</li>
+          </ul>
+        </article>
+
+        <article class="card wide">
+          <h3 class="card-title">个人临时提醒</h3>
+          <label class="field full">
+            <textarea
+              id="personalNotice"
+              class="lined-notes"
+              data-storage-key="notice.personal"
+              placeholder="写下临时提醒、备用电话、集合点或当天需要确认的事项"
+            ></textarea>
+          </label>
+        </article>
+      </div>
+    </section>
+
+    <p class="footer">
+      静态网页可直接部署到 GitHub Pages；本地内容使用 localStorage，双人开支使用 Supabase。
+    </p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const TRAVELERS = {
+      traveler_a: {
+        name: "旅行者 A",
+        avatar: "./assets/avatar-a.jpg"
+      },
+      traveler_b: {
+        name: "旅行者 B",
+        avatar: "./assets/avatar-b.jpg"
+      }
+    };
+
+    const SUPABASE_URL =
+      "https://wdgurgrlckxyqwbeiqry.supabase.co";
+
+    const SUPABASE_PUBLISHABLE_KEY =
+      "sb_publishable_JIHnbw0eVUWOkaMkJeELEA_P5u9931r";
+
+    const TRIP_ID = "hkmo-2026";
+    const STORAGE_PREFIX = "hkmoTrip2026";
+    const CURRENCIES = ["CNY", "HKD", "MOP"];
+    const CATEGORIES = ["交通", "餐饮", "住宿", "门票", "购物", "日用品", "其他"];
+
+    let supabaseClient = null;
+    let expenses = [];
+    let expenseChannel = null;
+    let isLoadingExpenses = false;
+
+    document.addEventListener("DOMContentLoaded", initializeApp);
+
+    function initializeApp() {
+      initializeTravelers();
+      initializeNavigation();
+      initializeChecklist();
+      initializeLocalStorageForms();
+      initializeExpenseForms();
+      initializeSupabase();
+      initializeExport();
+      loadExpenses();
+      subscribeToExpenseChanges();
+    }
+
+    function initializeTravelers() {
+      Object.entries(TRAVELERS).forEach(([traveler, config]) => {
+        document.querySelectorAll(`[data-traveler-name="${traveler}"]`).forEach((element) => {
+          element.textContent = config.name;
+        });
+
+        document.querySelectorAll(`[data-avatar="${traveler}"]`).forEach((image) => {
+          image.src = config.avatar;
+          image.alt = `${config.name} 头像`;
+          image.addEventListener("error", () => {
+            image.style.display = "none";
+            const fallback = document.querySelector(`[data-avatar-fallback="${traveler}"]`);
+            if (fallback) {
+              fallback.style.display = "grid";
+            }
+          });
+        });
+      });
+    }
+
+    function initializeNavigation() {
+      const buttons = Array.from(document.querySelectorAll(".nav-button"));
+      const views = Array.from(document.querySelectorAll(".view"));
+      const savedView = localStorage.getItem(storageKey("currentView"));
+      const initialView = views.some((view) => view.id === savedView) ? savedView : "transport";
+
+      function activateView(viewId) {
+        buttons.forEach((button) => {
+          button.classList.toggle("active", button.dataset.view === viewId);
+        });
+        views.forEach((view) => {
+          view.classList.toggle("active", view.id === viewId);
+        });
+        localStorage.setItem(storageKey("currentView"), viewId);
+      }
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => activateView(button.dataset.view));
+      });
+
+      activateView(initialView);
+    }
+
+    function initializeChecklist() {
+      document.querySelectorAll("#checkList input[type='checkbox']").forEach((checkbox) => {
+        const key = storageKey(`checklist.${checkbox.dataset.checkKey}`);
+        const item = checkbox.closest(".check-item");
+        checkbox.checked = localStorage.getItem(key) === "true";
+        item.classList.toggle("done", checkbox.checked);
+
+        checkbox.addEventListener("change", () => {
+          localStorage.setItem(key, String(checkbox.checked));
+          item.classList.toggle("done", checkbox.checked);
+        });
+      });
+    }
+
+    function initializeLocalStorageForms() {
+      document.querySelectorAll("[data-storage-key]").forEach((element) => {
+        const key = storageKey(element.dataset.storageKey);
+        const savedValue = localStorage.getItem(key);
+        if (savedValue !== null) {
+          element.value = savedValue;
+        }
+
+        element.addEventListener("input", () => {
+          localStorage.setItem(key, element.value);
+        });
+      });
+    }
+
+    function initializeExpenseForms() {
+      document.querySelectorAll("[data-expense-form]").forEach((form) => {
+        const todayInput = form.elements.spent_on;
+        if (todayInput && !todayInput.value) {
+          todayInput.value = "2026-06-30";
+        }
+
+        fillSelect(form.elements.category, CATEGORIES);
+        fillSelect(form.elements.currency, CURRENCIES);
+
+        form.addEventListener("submit", handleExpenseSubmit);
+      });
+    }
+
+    function initializeSupabase() {
+      setDatabaseStatus("正在连接数据库", "saving");
+
+      if (!window.supabase || typeof window.supabase.createClient !== "function") {
+        console.error("Supabase client library is not available.");
+        setDatabaseStatus("数据库连接失败：Supabase 脚本未加载，开支记录暂时不可同步。", "error");
+        return;
+      }
+
+      supabaseClient = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+    }
+
+    async function loadExpenses() {
+      if (!supabaseClient) {
+        expenses = [];
+        renderExpenses();
+        return;
+      }
+
+      if (isLoadingExpenses) {
+        return;
+      }
+
+      isLoadingExpenses = true;
+      try {
+        const { data, error } = await supabaseClient
+          .from("trip_expenses")
+          .select("*")
+          .eq("trip_id", TRIP_ID)
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          throw error;
+        }
+
+        expenses = Array.isArray(data) ? data : [];
+        renderExpenses();
+        setDatabaseStatus("双人开支已同步", "online");
+      } catch (error) {
+        console.error("Failed to load trip expenses:", error);
+        setDatabaseStatus(`数据库连接失败：${getReadableError(error)}`, "error");
+      } finally {
+        isLoadingExpenses = false;
+      }
+    }
+
+    async function handleExpenseSubmit(event) {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      const submitButton = form.querySelector("button[type='submit']");
+      const originalText = submitButton.textContent;
+      const traveler = form.dataset.traveler;
+      const payload = buildExpensePayload(form, traveler);
+
+      if (!payload.ok) {
+        setDatabaseStatus(payload.message, "error");
+        return;
+      }
+
+      if (!supabaseClient) {
+        setDatabaseStatus("数据库连接失败：当前无法保存开支记录。", "error");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "正在保存……";
+      setDatabaseStatus("正在保存", "saving");
+
+      try {
+        const { error } = await supabaseClient
+          .from("trip_expenses")
+          .insert(payload.data);
+
+        if (error) {
+          throw error;
+        }
+
+        form.reset();
+        form.elements.spent_on.value = payload.data.spent_on;
+        fillSelect(form.elements.category, CATEGORIES);
+        fillSelect(form.elements.currency, CURRENCIES);
+        setDatabaseStatus("保存成功", "online");
+        await loadExpenses();
+      } catch (error) {
+        console.error("Failed to save trip expense:", error);
+        setDatabaseStatus(`数据库连接失败：${getReadableError(error)}`, "error");
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
+    }
+
+    function buildExpensePayload(form, traveler) {
+      const spentOn = form.elements.spent_on.value;
+      const category = form.elements.category.value;
+      const currency = form.elements.currency.value;
+      const amount = Number(form.elements.amount.value);
+      const note = form.elements.note.value.trim();
+
+      if (!["traveler_a", "traveler_b"].includes(traveler)) {
+        return { ok: false, message: "traveler 必须为 traveler_a 或 traveler_b" };
+      }
+
+      if (!spentOn) {
+        return { ok: false, message: "日期不能为空" };
+      }
+
+      if (!CURRENCIES.includes(currency)) {
+        return { ok: false, message: "币种必须合法" };
+      }
+
+      if (!Number.isFinite(amount) || amount <= 0) {
+        return { ok: false, message: "金额必须为大于 0 的数字" };
+      }
+
+      return {
+        ok: true,
+        data: {
+          trip_id: TRIP_ID,
+          traveler,
+          spent_on: spentOn,
+          category,
+          currency,
+          amount,
+          note
+        }
+      };
+    }
+
+    async function deleteExpense(id) {
+      if (!supabaseClient) {
+        setDatabaseStatus("数据库连接失败：当前无法删除开支记录。", "error");
+        return;
+      }
+
+      setDatabaseStatus("正在保存", "saving");
+
+      try {
+        const { error } = await supabaseClient
+          .from("trip_expenses")
+          .delete()
+          .eq("id", id)
+          .eq("trip_id", TRIP_ID);
+
+        if (error) {
+          throw error;
+        }
+
+        setDatabaseStatus("删除成功", "online");
+        await loadExpenses();
+      } catch (error) {
+        console.error("Failed to delete trip expense:", error);
+        setDatabaseStatus(`数据库连接失败：${getReadableError(error)}`, "error");
+      }
+    }
+
+    function subscribeToExpenseChanges() {
+      if (!supabaseClient) {
+        return;
+      }
+
+      try {
+        expenseChannel = supabaseClient
+          .channel("trip-expenses-hkmo-2026")
+          .on(
+            "postgres_changes",
+            {
+              event: "*",
+              schema: "public",
+              table: "trip_expenses",
+              filter: "trip_id=eq.hkmo-2026"
+            },
+            () => {
+              loadExpenses();
+            }
+          )
+          .subscribe((status, error) => {
+            if (status === "SUBSCRIBED") {
+              setDatabaseStatus("双人开支已同步", "online");
+            }
+
+            if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+              console.error("Supabase realtime subscription issue:", status, error);
+            }
+          });
+      } catch (error) {
+        console.error("Failed to subscribe to expense changes:", error);
+      }
+    }
+
+    function renderExpenses() {
+      const totals = createEmptyTotals();
+      const totalsByTraveler = {
+        traveler_a: createEmptyTotals(),
+        traveler_b: createEmptyTotals()
+      };
+
+      expenses.forEach((expense) => {
+        if (!["traveler_a", "traveler_b"].includes(expense.traveler)) {
+          return;
+        }
+        const currency = CURRENCIES.includes(expense.currency) ? expense.currency : "CNY";
+        const amount = Number(expense.amount) || 0;
+        totals[currency] += amount;
+        totalsByTraveler[expense.traveler][currency] += amount;
+      });
+
+      CURRENCIES.forEach((currency) => {
+        const totalElement = document.querySelector(`[data-total-sum="${currency}"]`);
+        if (totalElement) {
+          totalElement.textContent = `${currency} ${formatAmount(totals[currency])}`;
+        }
+
+        Object.keys(totalsByTraveler).forEach((traveler) => {
+          const element = document.querySelector(`[data-summary="${traveler}:${currency}"]`);
+          if (element) {
+            element.textContent = `${currency} ${formatAmount(totalsByTraveler[traveler][currency])}`;
+          }
+        });
+      });
+
+      ["traveler_a", "traveler_b"].forEach((traveler) => {
+        const list = document.querySelector(`[data-expense-list="${traveler}"]`);
+        if (!list) {
+          return;
+        }
+
+        list.replaceChildren();
+        const travelerExpenses = expenses
+          .filter((expense) => expense.traveler === traveler)
+          .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+
+        if (travelerExpenses.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "empty-state";
+          empty.textContent = "还没有开支记录";
+          list.append(empty);
+          return;
+        }
+
+        travelerExpenses.forEach((expense) => {
+          list.append(createExpenseItem(expense));
+        });
+      });
+    }
+
+    function createExpenseItem(expense) {
+      const item = document.createElement("div");
+      item.className = "expense-item";
+
+      const date = document.createElement("div");
+      date.className = "expense-date";
+      date.textContent = expense.spent_on || "未填写日期";
+
+      const info = document.createElement("div");
+      info.className = "expense-info";
+
+      const title = document.createElement("strong");
+      title.textContent = expense.category || "其他";
+
+      const note = document.createElement("small");
+      note.textContent = expense.note ? expense.note : "无备注";
+
+      info.append(title, note);
+
+      const right = document.createElement("div");
+      right.className = "expense-right";
+
+      const amount = document.createElement("span");
+      amount.className = "expense-amount";
+      amount.textContent = `${expense.currency || "CNY"} ${formatAmount(Number(expense.amount) || 0)}`;
+
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "delete-button";
+      deleteButton.type = "button";
+      deleteButton.textContent = "删除";
+      deleteButton.addEventListener("click", () => confirmDeleteExpense(expense.id, deleteButton));
+
+      right.append(amount, deleteButton);
+      item.append(date, info, right);
+      return item;
+    }
+
+    function confirmDeleteExpense(id, button) {
+      if (button.dataset.confirming === "true") {
+        deleteExpense(id);
+        return;
+      }
+
+      button.dataset.confirming = "true";
+      button.textContent = "确认删除";
+      setDatabaseStatus("再次点击确认删除", "saving");
+
+      window.setTimeout(() => {
+        if (button.dataset.confirming === "true") {
+          button.dataset.confirming = "false";
+          button.textContent = "删除";
+        }
+      }, 5000);
+    }
+
+    function initializeExport() {
+      const exportButton = document.getElementById("exportButton");
+      if (!exportButton) {
+        return;
+      }
+
+      exportButton.addEventListener("click", () => {
+        const backup = {
+          exported_at: new Date().toISOString(),
+          trip_id: TRIP_ID,
+          local_storage: collectTripLocalStorage(),
+          expenses
+        };
+        const blob = new Blob([JSON.stringify(backup, null, 2)], {
+          type: "application/json"
+        });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "hkmo-trip-2026-backup.json";
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    function collectTripLocalStorage() {
+      const data = {};
+      for (let index = 0; index < localStorage.length; index += 1) {
+        const key = localStorage.key(index);
+        if (key && key.startsWith(`${STORAGE_PREFIX}.`)) {
+          data[key] = localStorage.getItem(key);
+        }
+      }
+      return data;
+    }
+
+    function setDatabaseStatus(message, state) {
+      const status = document.getElementById("databaseStatus");
+      const text = document.getElementById("databaseStatusText");
+      if (!status || !text) {
+        return;
+      }
+
+      status.classList.remove("online", "saving", "error");
+      status.classList.add(state);
+      text.textContent = message;
+    }
+
+    function createEmptyTotals() {
+      return CURRENCIES.reduce((result, currency) => {
+        result[currency] = 0;
+        return result;
+      }, {});
+    }
+
+    function fillSelect(select, values) {
+      if (!select) {
+        return;
+      }
+
+      select.replaceChildren();
+      values.forEach((value) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        select.append(option);
+      });
+    }
+
+    function formatAmount(value) {
+      return new Intl.NumberFormat("zh-CN", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      }).format(value);
+    }
+
+    function getReadableError(error) {
+      if (!error) {
+        return "未知错误";
+      }
+      return error.message || error.details || String(error);
+    }
+
+    function storageKey(key) {
+      return `${STORAGE_PREFIX}.${key}`;
+    }
+
+    window.addEventListener("beforeunload", () => {
+      if (expenseChannel && supabaseClient) {
+        supabaseClient.removeChannel(expenseChannel);
+      }
+    });
+  </script>
+</body>
+</html>
