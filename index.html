@@ -11,18 +11,19 @@
 
   <style>
     :root {
-      --paper: #fbfaf6;
-      --paper-deep: #f4ecdc;
-      --card: rgba(255, 255, 255, 0.95);
-      --cream: #f7efd9;
-      --ink: #27231f;
-      --muted: #746d63;
-      --line: #ded5c7;
-      --accent: #c95643;
-      --accent-soft: #fff4ef;
-      --green: #49765d;
-      --blue: #557a91;
-      --shadow: 0 14px 40px rgba(55, 46, 35, 0.08);
+      --paper: #f7fbff;
+      --paper-deep: #edf5f8;
+      --card: rgba(255, 255, 255, 0.62);
+      --ink: #222832;
+      --muted: #687482;
+      --line: rgba(255, 255, 255, 0.72);
+      --line-strong: rgba(96, 115, 132, 0.18);
+      --accent: #c85d4d;
+      --accent-soft: rgba(255, 245, 241, 0.76);
+      --green: #3f765f;
+      --blue: #4f7f9c;
+      --focus: rgba(80, 157, 194, 0.28);
+      --shadow: 0 18px 42px rgba(38, 50, 66, 0.10);
       --radius: 16px;
     }
 
@@ -35,13 +36,17 @@
     }
 
     body {
+      position: relative;
+      min-height: 100vh;
       margin: 0;
+      padding-bottom: calc(110px + env(safe-area-inset-bottom));
       color: var(--ink);
       background:
-        linear-gradient(rgba(38, 36, 33, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(38, 36, 33, 0.025) 1px, transparent 1px),
-        var(--paper);
+        linear-gradient(rgba(61, 79, 96, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(61, 79, 96, 0.018) 1px, transparent 1px),
+        linear-gradient(135deg, #fbfdff 0%, #fff9f0 44%, #f3fbff 100%);
       background-size: 24px 24px;
+      overflow-x: hidden;
       font-family:
         "Noto Sans SC",
         "PingFang SC",
@@ -49,6 +54,36 @@
         system-ui,
         -apple-system,
         sans-serif;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(58px);
+      transform: translateZ(0);
+    }
+
+    body::before {
+      top: -120px;
+      right: -100px;
+      width: min(48vw, 560px);
+      height: min(48vw, 560px);
+      background:
+        radial-gradient(circle at 38% 40%, rgba(137, 197, 222, 0.32), transparent 64%),
+        radial-gradient(circle at 70% 55%, rgba(249, 201, 129, 0.22), transparent 62%);
+    }
+
+    body::after {
+      left: -130px;
+      bottom: 8vh;
+      width: min(56vw, 640px);
+      height: min(46vw, 520px);
+      background:
+        radial-gradient(circle at 42% 48%, rgba(129, 214, 198, 0.22), transparent 66%),
+        radial-gradient(circle at 70% 70%, rgba(242, 166, 174, 0.18), transparent 64%);
     }
 
     button,
@@ -80,42 +115,30 @@
     }
 
     .app {
-      width: min(1180px, calc(100% - 28px));
-      margin: 22px auto 72px;
-    }
-
-    .hero {
       position: relative;
-      overflow: hidden;
-      padding: 25px;
-      border: 1px solid #e7d7a5;
-      border-radius: 22px;
-      background: var(--cream);
-      box-shadow: var(--shadow);
+      z-index: 1;
+      width: min(1180px, calc(100% - 28px));
+      margin: 26px auto 42px;
+      padding-bottom: calc(110px + env(safe-area-inset-bottom));
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 20px;
-      left: 0;
-      width: 3px;
-      height: 62px;
-      background: var(--accent);
-    }
-
-    .hero-top {
+    .compact-header {
       display: flex;
-      align-items: flex-start;
+      min-height: 70px;
+      align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 24px;
+      margin-bottom: 16px;
+      padding: 3px 2px 8px;
     }
 
-    .eyebrow {
-      margin-bottom: 8px;
+    .compact-eyebrow {
+      margin: 0 0 5px;
       color: var(--muted);
       font-size: 12px;
-      letter-spacing: 0.12em;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      line-height: 1.2;
       text-transform: uppercase;
     }
 
@@ -130,50 +153,17 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(30px, 5vw, 48px);
-      letter-spacing: 0.02em;
+      font-size: clamp(29px, 3.7vw, 40px);
+      line-height: 1.06;
+      letter-spacing: 0;
     }
 
-    .hero-description {
-      max-width: 720px;
-      margin: 10px 0 0;
+    .compact-route {
+      margin: 0;
       color: var(--muted);
-      font-size: 17px;
-      line-height: 1.75;
-    }
-
-    .date-card {
-      flex: 0 0 auto;
-      min-width: 245px;
-      padding: 14px 15px;
-      border: 1px solid rgba(113, 91, 38, 0.2);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.62);
-    }
-
-    .date-card strong,
-    .date-card span {
-      display: block;
-    }
-
-    .date-card strong {
-      margin-bottom: 5px;
-      font-size: 16px;
-    }
-
-    .date-card span {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    .status-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 16px;
-      flex-wrap: wrap;
+      font-size: 15px;
+      line-height: 1.45;
+      text-align: right;
     }
 
     .status-pill {
@@ -182,11 +172,17 @@
       gap: 7px;
       min-height: 34px;
       padding: 7px 11px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(255, 255, 255, 0.68);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.72);
-      color: var(--muted);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.28));
+      color: #50606f;
       font-size: 12px;
+      box-shadow:
+        0 8px 22px rgba(38, 50, 66, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      -webkit-backdrop-filter: blur(12px) saturate(130%);
+      backdrop-filter: blur(12px) saturate(130%);
     }
 
     .status-dot {
@@ -201,9 +197,17 @@
       box-shadow: 0 0 0 4px rgba(45, 155, 98, 0.12);
     }
 
+    .status-pill.online {
+      color: #315f49;
+    }
+
     .status-pill.saving .status-dot {
       background: #d89a32;
       box-shadow: 0 0 0 4px rgba(216, 154, 50, 0.12);
+    }
+
+    .status-pill.saving {
+      color: #79581e;
     }
 
     .status-pill.error .status-dot {
@@ -211,49 +215,156 @@
       box-shadow: 0 0 0 4px rgba(200, 69, 52, 0.12);
     }
 
-    .nav-shell {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      margin: 16px 0 22px;
+    .status-pill.error {
+      color: #8f332a;
+    }
+
+    .liquid-tab-bar {
+      --pointer-x: 50%;
+      --pointer-y: 50%;
+      position: fixed;
+      left: 50%;
+      bottom: max(16px, env(safe-area-inset-bottom));
+      z-index: 1000;
+      display: flex;
+      width: min(760px, calc(100vw - 24px));
+      height: 68px;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
       padding: 8px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(251, 250, 246, 0.9);
-      box-shadow: 0 8px 25px rgba(46, 41, 33, 0.06);
-      backdrop-filter: blur(16px);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.58);
+      border-radius: 999px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.52),
+          rgba(255, 255, 255, 0.20)
+        );
+      box-shadow:
+        0 18px 45px rgba(34, 42, 55, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.80),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.18);
+      transform: translateX(-50%);
+      -webkit-backdrop-filter:
+        blur(24px)
+        saturate(180%)
+        contrast(105%);
+      backdrop-filter:
+        blur(24px)
+        saturate(180%)
+        contrast(105%);
     }
 
-    .nav-tabs {
-      display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 7px;
+    .liquid-tab-bar::before,
+    .liquid-tab-bar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
     }
 
-    .nav-button {
+    .liquid-tab-bar::before {
+      background:
+        radial-gradient(
+          circle at var(--pointer-x) var(--pointer-y),
+          rgba(255, 255, 255, 0.42),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 20% 0%,
+          rgba(255, 255, 255, 0.72),
+          transparent 42%
+        ),
+        linear-gradient(
+          110deg,
+          rgba(255, 255, 255, 0.20),
+          transparent 38%,
+          rgba(117, 199, 216, 0.10) 52%,
+          transparent 78%
+        );
+      mix-blend-mode: soft-light;
+    }
+
+    .liquid-tab-bar::after {
+      inset: 1px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.32),
+          transparent 28%,
+          rgba(246, 207, 139, 0.10) 52%,
+          rgba(133, 196, 221, 0.12) 74%,
+          transparent
+        );
+      opacity: 0.72;
+    }
+
+    .liquid-tab {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      flex: 1 1 0;
       min-width: 0;
-      min-height: 44px;
-      padding: 11px 8px;
+      height: 52px;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 0 14px;
       border: 0;
-      border-radius: 11px;
+      border-radius: 999px;
       background: transparent;
-      color: var(--muted);
+      color: #4b5866;
       white-space: nowrap;
       transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
+        flex-basis 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+        flex-grow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
     }
 
-    .nav-button:hover {
+    .liquid-tab:hover {
       color: var(--ink);
-      background: #f0ece4;
+      background: rgba(255, 255, 255, 0.22);
     }
 
-    .nav-button.active {
-      color: #fff;
-      background: var(--ink);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+    .liquid-tab:active {
+      transform: scale(0.96);
+    }
+
+    .liquid-tab.active {
+      flex-grow: 1.25;
+      color: #1f2a35;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.72),
+          rgba(255, 255, 255, 0.34)
+        );
+      box-shadow:
+        0 4px 14px rgba(30, 38, 50, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .tab-icon {
+      flex: 0 0 auto;
+      font-size: 19px;
+      line-height: 1;
+    }
+
+    .tab-label {
+      max-width: 80px;
+      overflow: hidden;
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 1;
+      transition:
+        max-width 0.28s ease,
+        opacity 0.22s ease;
     }
 
     .view {
@@ -296,14 +407,22 @@
       line-height: 1.7;
     }
 
+    .section-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
     .badge {
       display: inline-flex;
       align-items: center;
       min-height: 24px;
       padding: 4px 9px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(255, 255, 255, 0.68);
       border-radius: 999px;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.54);
       color: var(--muted);
       font-size: 12px;
       white-space: nowrap;
@@ -318,10 +437,12 @@
     .card {
       min-width: 0;
       padding: 18px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(255, 255, 255, 0.72);
       border-radius: var(--radius);
       background: var(--card);
-      box-shadow: 0 8px 28px rgba(48, 42, 33, 0.045);
+      box-shadow: 0 14px 32px rgba(38, 50, 66, 0.07);
+      -webkit-backdrop-filter: blur(12px) saturate(125%);
+      backdrop-filter: blur(12px) saturate(125%);
     }
 
     .wide {
@@ -344,7 +465,7 @@
       padding: 13px 14px;
       border-left: 3px solid var(--accent);
       border-radius: 0 10px 10px 0;
-      background: #fff7f4;
+      background: rgba(255, 247, 244, 0.82);
       color: #624d47;
       line-height: 1.75;
     }
@@ -352,19 +473,25 @@
     .button {
       min-height: 42px;
       padding: 9px 13px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.46));
       color: var(--ink);
+      box-shadow:
+        0 8px 20px rgba(38, 50, 66, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.80);
     }
 
     .button:hover {
-      background: #f4f1eb;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.56));
     }
 
     .button.primary {
-      border-color: var(--ink);
-      background: var(--ink);
+      border-color: rgba(36, 49, 60, 0.62);
+      background:
+        linear-gradient(135deg, rgba(43, 63, 78, 0.94), rgba(38, 48, 60, 0.86));
       color: #fff;
     }
 
@@ -374,7 +501,7 @@
 
     .button.danger {
       border-color: #ebc2ba;
-      background: #fff8f6;
+      background: rgba(255, 248, 246, 0.80);
       color: #a73d2e;
     }
 
@@ -403,11 +530,16 @@
       width: 100%;
       min-height: 42px;
       padding: 11px 12px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
+      border: 1px solid rgba(108, 125, 140, 0.20);
+      border-radius: 13px;
       outline: none;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.86);
       color: var(--ink);
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #8994a0;
     }
 
     .field textarea {
@@ -419,8 +551,8 @@
     .field input:focus,
     .field select:focus,
     .field textarea:focus {
-      border-color: #a89e90;
-      box-shadow: 0 0 0 3px rgba(133, 121, 103, 0.1);
+      border-color: rgba(72, 151, 190, 0.62);
+      box-shadow: 0 0 0 4px var(--focus);
     }
 
     .route {
@@ -503,9 +635,9 @@
       align-items: flex-start;
       gap: 10px;
       padding: 11px 12px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(108, 125, 140, 0.14);
       border-radius: 11px;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.72);
     }
 
     .check-item input {
@@ -531,9 +663,9 @@
       gap: 12px;
       min-width: 0;
       padding: 12px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(108, 125, 140, 0.14);
       border-radius: 13px;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.72);
     }
 
     .app-icon {
@@ -543,7 +675,7 @@
       overflow: hidden;
       place-items: center;
       border-radius: 12px;
-      background: var(--paper-deep);
+      background: rgba(237, 245, 248, 0.78);
       box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
     }
 
@@ -651,8 +783,10 @@
       padding: 18px;
       border: 1px solid var(--line);
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.94);
-      box-shadow: 0 10px 30px rgba(48, 42, 33, 0.05);
+      background: rgba(255, 255, 255, 0.66);
+      box-shadow: 0 14px 34px rgba(38, 50, 66, 0.08);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      backdrop-filter: blur(10px) saturate(120%);
     }
 
     .traveler-card[data-traveler="traveler_a"] {
@@ -728,7 +862,7 @@
       padding: 11px;
       border: 1px solid #ece6da;
       border-radius: 12px;
-      background: #f8f5ee;
+      background: rgba(255, 255, 255, 0.62);
     }
 
     .summary-box span,
@@ -757,7 +891,9 @@
     }
 
     .combined-summary .summary-box {
-      background: var(--ink);
+      border-color: rgba(36, 49, 60, 0.20);
+      background:
+        linear-gradient(135deg, rgba(41, 53, 65, 0.94), rgba(34, 40, 50, 0.88));
       color: #fff;
     }
 
@@ -767,9 +903,9 @@
 
     .expense-form {
       padding: 13px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(108, 125, 140, 0.15);
       border-radius: 14px;
-      background: #faf8f3;
+      background: rgba(250, 252, 253, 0.72);
     }
 
     .expense-list {
@@ -784,9 +920,9 @@
       gap: 10px;
       align-items: center;
       padding: 11px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(108, 125, 140, 0.14);
       border-radius: 12px;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.74);
     }
 
     .expense-date {
@@ -860,9 +996,9 @@
 
     .reminder-list li {
       padding: 12px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(108, 125, 140, 0.14);
       border-radius: 12px;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.72);
       line-height: 1.6;
     }
 
@@ -873,7 +1009,7 @@
       border-left: 3px solid var(--accent) !important;
       border-radius: 0 !important;
       background:
-        linear-gradient(#fff 31px, #ece6dc 32px) !important;
+        linear-gradient(rgba(255, 255, 255, 0.9) 31px, rgba(214, 224, 229, 0.78) 32px) !important;
       background-size: 100% 32px !important;
       line-height: 32px !important;
       box-shadow: none !important;
@@ -888,36 +1024,58 @@
     }
 
     @media (max-width: 900px) {
-      .nav-tabs {
-        display: flex;
-        overflow-x: auto;
-        scrollbar-width: none;
-      }
-
-      .nav-tabs::-webkit-scrollbar {
-        display: none;
-      }
-
-      .nav-button {
-        flex: 0 0 auto;
-        min-width: 92px;
-      }
-
       .traveler-columns,
       .app-list {
         grid-template-columns: 1fr;
       }
     }
 
+    @media (max-width: 720px) {
+      .liquid-tab-bar {
+        height: 66px;
+        gap: 3px;
+        padding: 7px 6px;
+      }
+
+      .liquid-tab {
+        flex: 0 1 44px;
+        min-width: 44px;
+        padding: 0 10px;
+      }
+
+      .liquid-tab.active {
+        flex: 1 1 112px;
+      }
+
+      .liquid-tab .tab-label {
+        max-width: 0;
+        opacity: 0;
+      }
+
+      .liquid-tab.active .tab-label {
+        max-width: 72px;
+        opacity: 1;
+      }
+    }
+
     @media (max-width: 760px) {
-      .hero-top,
+      .compact-header,
       .section-header {
         align-items: flex-start;
         flex-direction: column;
       }
 
-      .date-card {
-        width: 100%;
+      .compact-header {
+        min-height: 70px;
+        gap: 8px;
+      }
+
+      .compact-route {
+        text-align: left;
+      }
+
+      .section-actions {
+        justify-content: flex-start;
       }
 
       .grid {
@@ -942,18 +1100,12 @@
     @media (max-width: 520px) {
       .app {
         width: min(100% - 18px, 1180px);
-        margin-top: 10px;
+        margin-top: 14px;
       }
 
-      .hero,
       .card,
       .traveler-card {
         padding: 16px;
-      }
-
-      .status-row {
-        align-items: stretch;
-        flex-direction: column;
       }
 
       .route-arrow {
@@ -987,53 +1139,99 @@
         grid-column: 1 / -1;
       }
     }
+
+    @media (max-width: 360px) {
+      .liquid-tab-bar {
+        gap: 2px;
+        padding: 6px;
+      }
+
+      .liquid-tab {
+        flex-basis: 40px;
+        min-width: 40px;
+        padding: 0 7px;
+      }
+
+      .liquid-tab.active {
+        flex-basis: 78px;
+      }
+
+      .tab-icon {
+        font-size: 18px;
+      }
+    }
+
+    @supports not (
+      (backdrop-filter: blur(1px)) or
+      (-webkit-backdrop-filter: blur(1px))
+    ) {
+      .liquid-tab-bar {
+        background: rgba(248, 248, 250, 0.96);
+      }
+
+      .card,
+      .traveler-card,
+      .status-pill {
+        background: rgba(255, 255, 255, 0.92);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 
 <body>
   <main class="app">
-    <header class="hero">
-      <div class="hero-top">
-        <div>
-          <div class="eyebrow">Personal Travel Notebook</div>
-          <h1>🇭🇰🇲🇴 港澳之旅</h1>
-          <p class="hero-description">
-            2026.06.30 — 07.03<br>
-            深圳 → 香港 → 澳门 → 珠海 → 广州
-          </p>
-        </div>
-
-        <div class="date-card">
-          <strong>2026.06.30 — 2026.07.03</strong>
-          <span>6 月 30 日、7 月 1 日：🇭🇰 香港</span>
-          <span>7 月 1 日晚上、7 月 2 日：🇲🇴 澳门</span>
-          <span>7 月 2 日晚上：前往珠海</span>
-          <span>7 月 3 日清晨：🌅 珠海看日出</span>
-          <span>7 月 3 日中午：珠海前往广州</span>
-        </div>
+    <header class="compact-header">
+      <div>
+        <p class="compact-eyebrow">TRAVEL NOTEBOOK</p>
+        <h1>🇭🇰🇲🇴 港澳之旅</h1>
       </div>
 
-      <div class="status-row">
-        <span id="databaseStatus" class="status-pill saving" role="status" aria-live="polite">
-          <span class="status-dot"></span>
-          <span id="databaseStatusText">正在连接数据库</span>
-        </span>
-
-        <button id="exportButton" class="button" type="button">
-          导出本地备份
-        </button>
-      </div>
+      <p class="compact-route">
+        06.30—07.03 · 深圳 → 香港 → 澳门 → 珠海 → 广州
+      </p>
     </header>
 
-    <nav class="nav-shell" aria-label="旅行模块导航">
-      <div class="nav-tabs">
-        <button class="nav-button active" data-view="transport" type="button">交通</button>
-        <button class="nav-button" data-view="prepare" type="button">准备</button>
-        <button class="nav-button" data-view="stay" type="button">住宿</button>
-        <button class="nav-button" data-view="footprint" type="button">足迹</button>
-        <button class="nav-button" data-view="expense" type="button">开支记录</button>
-        <button class="nav-button" data-view="notice" type="button">注意事项</button>
-      </div>
+    <nav class="liquid-tab-bar" aria-label="旅行页面导航">
+      <button class="liquid-tab active" data-view="transport" type="button" aria-label="交通" aria-current="page">
+        <span class="tab-icon" aria-hidden="true">🚆</span>
+        <span class="tab-label">交通</span>
+      </button>
+
+      <button class="liquid-tab" data-view="prepare" type="button" aria-label="准备">
+        <span class="tab-icon" aria-hidden="true">📋</span>
+        <span class="tab-label">准备</span>
+      </button>
+
+      <button class="liquid-tab" data-view="stay" type="button" aria-label="住宿">
+        <span class="tab-icon" aria-hidden="true">🛏️</span>
+        <span class="tab-label">住宿</span>
+      </button>
+
+      <button class="liquid-tab" data-view="footprint" type="button" aria-label="足迹">
+        <span class="tab-icon" aria-hidden="true">📍</span>
+        <span class="tab-label">足迹</span>
+      </button>
+
+      <button class="liquid-tab" data-view="expense" type="button" aria-label="开支">
+        <span class="tab-icon" aria-hidden="true">💳</span>
+        <span class="tab-label">开支</span>
+      </button>
+
+      <button class="liquid-tab" data-view="notice" type="button" aria-label="注意">
+        <span class="tab-icon" aria-hidden="true">⚠️</span>
+        <span class="tab-label">注意</span>
+      </button>
     </nav>
 
     <section id="transport" class="view active">
@@ -1311,7 +1509,13 @@
           <h2>开支记录</h2>
           <p>仅双人开支记录保存到 Supabase，三种币种分别统计，不做汇率换算。</p>
         </div>
-        <span class="badge">trip_id: hkmo-2026</span>
+        <div class="section-actions">
+          <span id="databaseStatus" class="status-pill saving" role="status" aria-live="polite">
+            <span class="status-dot"></span>
+            <span id="databaseStatusText">正在连接数据库</span>
+          </span>
+          <span class="badge">trip_id: hkmo-2026</span>
+        </div>
       </div>
 
       <div class="combined-summary" aria-label="双人合计">
@@ -1411,6 +1615,16 @@
           </ul>
         </article>
 
+        <article class="card">
+          <h3 class="card-title">数据与备份</h3>
+          <p class="muted">
+            导出当前浏览器中的准备清单、住宿、足迹备注和注意事项；已加载的开支仅作为当前页面快照，不替代 Supabase 数据备份。
+          </p>
+          <button id="exportButton" class="button" type="button">
+            导出本地备份
+          </button>
+        </article>
+
         <article class="card wide">
           <h3 class="card-title">个人临时提醒</h3>
           <label class="field full">
@@ -1494,26 +1708,65 @@
     }
 
     function initializeNavigation() {
-      const buttons = Array.from(document.querySelectorAll(".nav-button"));
+      const buttons = Array.from(document.querySelectorAll(".liquid-tab"));
       const views = Array.from(document.querySelectorAll(".view"));
       const savedView = localStorage.getItem(storageKey("currentView"));
       const initialView = views.some((view) => view.id === savedView) ? savedView : "transport";
 
-      function activateView(viewId) {
+      function activateView(viewId, shouldScroll = false) {
         buttons.forEach((button) => {
-          button.classList.toggle("active", button.dataset.view === viewId);
+          const isActive = button.dataset.view === viewId;
+          button.classList.toggle("active", isActive);
+          if (isActive) {
+            button.setAttribute("aria-current", "page");
+          } else {
+            button.removeAttribute("aria-current");
+          }
         });
         views.forEach((view) => {
           view.classList.toggle("active", view.id === viewId);
         });
         localStorage.setItem(storageKey("currentView"), viewId);
+
+        if (shouldScroll) {
+          const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          window.scrollTo({
+            top: 0,
+            behavior: reduceMotion ? "auto" : "smooth"
+          });
+        }
       }
 
       buttons.forEach((button) => {
-        button.addEventListener("click", () => activateView(button.dataset.view));
+        button.addEventListener("click", () => activateView(button.dataset.view, true));
       });
 
       activateView(initialView);
+      initializeLiquidPointer();
+    }
+
+    function initializeLiquidPointer() {
+      const tabBar = document.querySelector(".liquid-tab-bar");
+      if (!tabBar) {
+        return;
+      }
+
+      const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (isCoarsePointer || reduceMotion) {
+        return;
+      }
+
+      tabBar.addEventListener("pointermove", (event) => {
+        const rect = tabBar.getBoundingClientRect();
+        tabBar.style.setProperty("--pointer-x", `${event.clientX - rect.left}px`);
+        tabBar.style.setProperty("--pointer-y", `${event.clientY - rect.top}px`);
+      });
+
+      tabBar.addEventListener("pointerleave", () => {
+        tabBar.style.setProperty("--pointer-x", "50%");
+        tabBar.style.setProperty("--pointer-y", "50%");
+      });
     }
 
     function initializeChecklist() {
