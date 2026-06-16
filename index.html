@@ -1334,6 +1334,17 @@
       line-height: 1.65;
     }
 
+    .rule-item.has-penalty {
+      grid-template-columns: minmax(0, 1fr) auto;
+      column-gap: 12px;
+      align-items: start;
+    }
+
+    .rule-item.has-penalty > ul,
+    .rule-item.has-penalty > p {
+      grid-column: 1 / -1;
+    }
+
     .rule-item strong {
       display: flex;
       align-items: center;
@@ -1365,6 +1376,41 @@
       font-size: 12px;
       font-weight: 800;
       white-space: nowrap;
+    }
+
+    .penalty-list {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 6px;
+      max-width: 230px;
+    }
+
+    .penalty-badge {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      padding: 4px 9px;
+      border: 1px solid rgba(181, 86, 62, 0.20);
+      border-radius: 999px;
+      background: rgba(183, 83, 62, 0.12);
+      color: #8d3f31;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.35;
+      white-space: normal;
+    }
+
+    .penalty-badge.strong {
+      border-color: rgba(169, 71, 57, 0.24);
+      background: rgba(170, 71, 57, 0.16);
+      color: #813429;
+    }
+
+    .penalty-badge.range {
+      border-color: rgba(202, 127, 48, 0.24);
+      background: rgba(206, 139, 54, 0.15);
+      color: #75511d;
     }
 
     .rule-tag.info {
@@ -1490,6 +1536,26 @@
       .section-header {
         align-items: flex-start;
         flex-direction: column;
+      }
+
+      .rule-item.has-penalty {
+        grid-template-columns: 1fr;
+      }
+
+      .rule-item.has-penalty > strong {
+        order: 1;
+      }
+
+      .rule-item.has-penalty > ul,
+      .rule-item.has-penalty > p {
+        grid-column: auto;
+        order: 2;
+      }
+
+      .penalty-list {
+        justify-content: flex-start;
+        max-width: none;
+        order: 3;
       }
 
       .liquid-title-pill {
@@ -2175,8 +2241,11 @@
         <article class="card">
           <h3 class="card-title">🇭🇰 香港注意事项</h3>
           <div class="rule-list">
-            <div class="rule-item">
+            <div class="rule-item has-penalty">
               <strong><span class="rule-tag info">交通</span> 港铁与公共交通</strong>
+              <div class="penalty-list" aria-label="处罚力度">
+                <span class="penalty-badge">付费区饮食罚款 HKD 2,000</span>
+              </div>
               <ul>
                 <li>港铁车厢及相关禁止饮食区域内不要吃东西或喝饮料。</li>
                 <li>不要在车厢内大声喧哗或使用手机外放。</li>
@@ -2185,17 +2254,33 @@
               </ul>
             </div>
 
-            <div class="rule-item">
-              <strong><span class="rule-tag warn">环境卫生</span> 垃圾、吐痰和野生动物</strong>
+            <div class="rule-item has-penalty">
+              <strong><span class="rule-tag warn">环境卫生</span> 垃圾和吐痰</strong>
+              <div class="penalty-list" aria-label="处罚力度">
+                <span class="penalty-badge">定额罚款 HKD 3,000</span>
+              </div>
               <ul>
                 <li>不要乱扔垃圾，不要随地吐痰。</li>
                 <li>不要把垃圾放在垃圾桶旁边或公共区域。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item has-penalty">
+              <strong><span class="rule-tag warn">野生动物</span> 不要喂饲</strong>
+              <div class="penalty-list" aria-label="处罚力度">
+                <span class="penalty-badge">定额罚款 HKD 5,000</span>
+                <span class="penalty-badge strong">经定罪最高 HKD 100,000 及监禁 1 年</span>
+              </div>
+              <ul>
                 <li>不要喂食野生动物、野猪、猴子、野鸟或野鸽。</li>
               </ul>
             </div>
 
-            <div class="rule-item">
+            <div class="rule-item has-penalty">
               <strong><span class="rule-tag info">道路安全</span> 过马路和乘车</strong>
+              <div class="penalty-list" aria-label="处罚力度">
+                <span class="penalty-badge">乱过马路最高罚款 HKD 2,000</span>
+              </div>
               <ul>
                 <li>按照红绿灯、斑马线、行人天桥和地下通道过马路。</li>
                 <li>不要在过马路时低头玩手机或停在斑马线上拍照。</li>
@@ -2216,12 +2301,15 @@
         <article class="card">
           <h3 class="card-title">🇲🇴 澳门注意事项</h3>
           <div class="rule-list">
-            <div class="rule-item">
+            <div class="rule-item has-penalty">
               <strong><span class="rule-tag warn">环境卫生</span> 垃圾和吐痰</strong>
+              <div class="penalty-list" aria-label="处罚力度">
+                <span class="penalty-badge">定额罚款 MOP 600</span>
+              </div>
               <ul>
                 <li>不要乱扔纸巾、饮料杯或其他垃圾。</li>
                 <li>垃圾桶已满时，也不要把垃圾放在垃圾桶旁边。</li>
-                <li>乱抛垃圾等行为可能被罚款 MOP 600。</li>
+                <li>不要随地吐痰或擤鼻涕，保持公共地方整洁。</li>
               </ul>
             </div>
 
@@ -2242,8 +2330,11 @@
               </ul>
             </div>
 
-            <div class="rule-item">
+            <div class="rule-item has-penalty">
               <strong><span class="rule-tag info">娱乐场</span> 年龄和现场规定</strong>
+              <div class="penalty-list" aria-label="处罚力度">
+                <span class="penalty-badge strong">最高罚款 MOP 10,000，并可能没收投注及收益</span>
+              </div>
               <ul>
                 <li>未满 21 岁不得进入澳门娱乐场。</li>
                 <li>进入娱乐场后遵守现场拍摄、录音和设备管理规定。</li>
@@ -2251,11 +2342,17 @@
               </ul>
             </div>
 
-            <div class="rule-item">
+            <div class="rule-item has-penalty">
               <strong><span class="rule-tag ok">通关</span> 证件与管制区域</strong>
+              <div class="penalty-list" aria-label="处罚力度">
+                <span class="penalty-badge range">限制区域罚款范围 MOP 3,000-9,000</span>
+                <span class="penalty-badge range">逃避管控罚款范围 MOP 5,000-15,000</span>
+              </div>
               <ul>
                 <li>过关时随身携带实体港澳通行证。</li>
                 <li>使用自助通关设备时，按要求取下帽子、口罩或太阳镜，以便完成人脸识别。</li>
+                <li>不要未经许可进入口岸限制区域。</li>
+                <li>不要逃避出入境管控，使用自助通道时不要与他人同行。</li>
                 <li>不要在出入境管制区域随意拍照、录像或录音。</li>
               </ul>
             </div>
@@ -2265,6 +2362,7 @@
               <ul>
                 <li>不要在澳门随意放飞无人机。</li>
                 <li>计划使用无人机前，先查询澳门民航主管部门的最新限制、禁飞区和申报要求。</li>
+                <li>处罚依具体违规行为及最新民航规定确定。</li>
               </ul>
             </div>
 
@@ -2281,7 +2379,7 @@
       </div>
 
       <p class="notice-source">
-        注：规则和罚款可能调整，请以香港、澳门政府最新公告、口岸规定及现场标识为准。
+        注：法规和罚款可能调整，请以当地政府最新公告及现场执法为准。最后核对：2026年6月。
         官方入口：
         <a href="https://www.mtr.com.hk/" target="_blank" rel="noreferrer">港铁</a>、
         <a href="https://www.customs.gov.hk/" target="_blank" rel="noreferrer">香港海关</a>、
