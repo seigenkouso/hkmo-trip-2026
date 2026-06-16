@@ -1326,12 +1326,48 @@
       color: #476d86;
     }
 
-    .footer {
-      margin-top: 25px;
+    .site-footer {
+      display: flex;
+      justify-content: center;
+      margin: 32px auto 0;
       color: var(--muted);
       font-size: 12px;
       line-height: 1.7;
       text-align: center;
+    }
+
+    .site-footer p {
+      display: inline-flex;
+      max-width: 100%;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 9px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.56);
+      border-radius: 999px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.38),
+          rgba(255, 255, 255, 0.16)
+        );
+      box-shadow:
+        0 8px 20px rgba(35, 42, 54, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.62);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      backdrop-filter: blur(10px) saturate(120%);
+    }
+
+    .site-footer a {
+      color: #476d86;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .site-footer a:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 900px) {
@@ -1503,6 +1539,7 @@
       .card,
       .traveler-card,
       .liquid-title-pill,
+      .site-footer p,
       .status-pill,
       .plan-edit-panel {
         background: rgba(255, 255, 255, 0.92);
@@ -2191,9 +2228,18 @@
       </p>
     </section>
 
-    <p class="footer">
-      Powered by Supabase<br>
-    </p>
+    <footer class="site-footer">
+      <p>
+        Powered by
+        <a href="https://supabase.com/" target="_blank" rel="noopener noreferrer">
+          Supabase
+        </a>
+        · Hosted on
+        <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">
+          GitHub Pages
+        </a>
+      </p>
+    </footer>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
