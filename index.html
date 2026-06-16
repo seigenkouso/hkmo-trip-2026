@@ -122,24 +122,68 @@
       padding-bottom: calc(110px + env(safe-area-inset-bottom));
     }
 
-    .compact-header {
-      display: flex;
-      min-height: 70px;
+    .liquid-title-pill {
+      position: relative;
+      display: inline-flex;
+      width: fit-content;
+      max-width: 100%;
       align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 16px;
-      padding: 3px 2px 8px;
+      margin: 18px 0 22px;
+      padding: 12px 20px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.62);
+      border-radius: 999px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.55),
+          rgba(255, 255, 255, 0.22)
+        );
+      box-shadow:
+        0 12px 30px rgba(35, 42, 54, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.82),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.16);
+      -webkit-backdrop-filter: blur(20px) saturate(155%);
+      backdrop-filter: blur(20px) saturate(155%);
     }
 
-    .compact-eyebrow {
-      margin: 0 0 5px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      line-height: 1.2;
-      text-transform: uppercase;
+    .liquid-title-pill::before,
+    .liquid-title-pill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .liquid-title-pill::before {
+      background:
+        radial-gradient(
+          circle at 24% 0%,
+          rgba(255, 255, 255, 0.68),
+          transparent 44%
+        ),
+        linear-gradient(
+          110deg,
+          rgba(255, 255, 255, 0.18),
+          transparent 42%,
+          rgba(117, 199, 216, 0.08) 62%,
+          transparent 84%
+        );
+      mix-blend-mode: soft-light;
+    }
+
+    .liquid-title-pill::after {
+      inset: 1px;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.28),
+          transparent 34%,
+          rgba(246, 207, 139, 0.08) 58%,
+          transparent
+        );
+      opacity: 0.7;
     }
 
     h1,
@@ -153,17 +197,15 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(29px, 3.7vw, 40px);
-      line-height: 1.06;
+      font-size: clamp(24px, 4vw, 34px);
+      line-height: 1.15;
       letter-spacing: 0;
+      text-align: left;
     }
 
-    .compact-route {
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.45;
-      text-align: right;
+    .liquid-title-pill h1 {
+      position: relative;
+      z-index: 1;
     }
 
     .status-pill {
@@ -1302,19 +1344,14 @@
     }
 
     @media (max-width: 760px) {
-      .compact-header,
       .section-header {
         align-items: flex-start;
         flex-direction: column;
       }
 
-      .compact-header {
-        min-height: 70px;
-        gap: 8px;
-      }
-
-      .compact-route {
-        text-align: left;
+      .liquid-title-pill {
+        margin: 12px 0 18px;
+        padding: 10px 16px;
       }
 
       .section-actions {
@@ -1344,6 +1381,14 @@
       .app {
         width: min(100% - 18px, 1180px);
         margin-top: 14px;
+      }
+
+      .liquid-title-pill {
+        padding: 9px 14px;
+      }
+
+      .liquid-title-pill h1 {
+        font-size: clamp(22px, 7vw, 28px);
       }
 
       .card,
@@ -1444,15 +1489,8 @@
 
 <body>
   <main class="app">
-    <header class="compact-header">
-      <div>
-        <p class="compact-eyebrow">TRAVEL NOTEBOOK</p>
-        <h1>🇭🇰🇲🇴 港澳之旅</h1>
-      </div>
-
-      <p class="compact-route">
-        06.30—07.03 · 深圳 → 香港 → 澳门 → 珠海 → 广州
-      </p>
+    <header class="liquid-title-pill">
+      <h1>🇭🇰🇲🇴 港澳之旅</h1>
     </header>
 
     <nav class="liquid-tab-bar" aria-label="旅行页面导航">
