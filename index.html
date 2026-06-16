@@ -2788,10 +2788,29 @@
           .on(
             "postgres_changes",
             {
-              event: "*",
+              event: "INSERT",
               schema: "public",
               table: "trip_plan_items",
               filter: "trip_id=eq.hkmo-2026"
+            },
+            queueTripPlanReload
+          )
+          .on(
+            "postgres_changes",
+            {
+              event: "UPDATE",
+              schema: "public",
+              table: "trip_plan_items",
+              filter: "trip_id=eq.hkmo-2026"
+            },
+            queueTripPlanReload
+          )
+          .on(
+            "postgres_changes",
+            {
+              event: "DELETE",
+              schema: "public",
+              table: "trip_plan_items"
             },
             queueTripPlanReload
           )

@@ -22,6 +22,9 @@ on public.trip_plan_items (event_date, event_time);
 alter table public.trip_plan_items
 enable row level security;
 
+alter table public.trip_plan_items
+replica identity full;
+
 grant usage on schema public
 to anon, authenticated;
 
