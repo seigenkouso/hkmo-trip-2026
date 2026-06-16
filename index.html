@@ -122,17 +122,28 @@
       padding-bottom: calc(110px + env(safe-area-inset-bottom));
     }
 
+    .liquid-title-shell {
+      position: fixed;
+      top: max(14px, env(safe-area-inset-top));
+      left: 50%;
+      z-index: 900;
+      width: min(1180px, calc(100% - 28px));
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
     .liquid-title-pill {
       position: relative;
       display: inline-flex;
       width: fit-content;
       max-width: 100%;
       align-items: center;
-      margin: 18px 0 22px;
+      margin: 0;
       padding: 12px 20px;
       overflow: hidden;
       border: 1px solid rgba(255, 255, 255, 0.62);
       border-radius: 999px;
+      pointer-events: auto;
       background:
         linear-gradient(
           135deg,
@@ -609,6 +620,18 @@
     .field textarea:focus {
       border-color: rgba(72, 151, 190, 0.62);
       box-shadow: 0 0 0 4px var(--focus);
+    }
+
+    .phone-field {
+      display: grid;
+      grid-template-columns: minmax(100px, 116px) minmax(0, 1fr);
+      gap: 8px;
+      width: 100%;
+    }
+
+    .phone-field select,
+    .phone-field input {
+      min-width: 0;
     }
 
     .route {
@@ -1350,7 +1373,6 @@
       }
 
       .liquid-title-pill {
-        margin: 12px 0 18px;
         padding: 10px 16px;
       }
 
@@ -1381,6 +1403,10 @@
       .app {
         width: min(100% - 18px, 1180px);
         margin-top: 14px;
+      }
+
+      .liquid-title-shell {
+        width: min(100% - 18px, 1180px);
       }
 
       .liquid-title-pill {
@@ -1468,6 +1494,7 @@
 
       .card,
       .traveler-card,
+      .liquid-title-pill,
       .status-pill,
       .plan-edit-panel {
         background: rgba(255, 255, 255, 0.92);
@@ -1488,11 +1515,13 @@
 </head>
 
 <body>
-  <main class="app">
+  <div class="liquid-title-shell">
     <header class="liquid-title-pill">
       <h1>🇭🇰🇲🇴 港澳之旅</h1>
     </header>
+  </div>
 
+  <main class="app">
     <nav class="liquid-tab-bar" aria-label="旅行页面导航">
       <button class="liquid-tab active" data-view="transport" type="button" aria-label="交通" aria-current="page">
         <span class="tab-icon" aria-hidden="true">🚆</span>
@@ -1753,7 +1782,16 @@
             <label class="field">酒店名称<input id="hongKongHotelName" type="text" value="香港阿山龙祥旅馆" data-storage-key="stay.hk.name"></label>
             <label class="field">入住日期<input id="hongKongHotelDate" type="date" value="2026-06-30" data-storage-key="stay.hk.date"></label>
             <label class="field full">详细地址<input id="hongKongHotelAddress" type="text" placeholder="粘贴完整地址" data-storage-key="stay.hk.address"></label>
-            <label class="field">联系电话<input id="hongKongHotelPhone" type="text" placeholder="+852 ..." data-storage-key="stay.hk.phone"></label>
+            <label class="field">联系电话
+              <div class="phone-field">
+                <select id="hongKongHotelPhoneCode" aria-label="香港住宿电话区号" data-storage-key="stay.hk.phoneCode">
+                  <option value="+86">🇨🇳 +86</option>
+                  <option value="+852" selected>🇭🇰 +852</option>
+                  <option value="+853">🇲🇴 +853</option>
+                </select>
+                <input id="hongKongHotelPhoneNumber" type="tel" inputmode="tel" placeholder="" data-storage-key="stay.hk.phoneNumber">
+              </div>
+            </label>
             <label class="field">订单号<input id="hongKongHotelOrder" type="text" placeholder="订单号" data-storage-key="stay.hk.order"></label>
             <label class="field full">入住备注<textarea id="hongKongHotelMemo" placeholder="前台位置、最晚入住时间、押金、行李寄存等" data-storage-key="stay.hk.memo"></textarea></label>
           </div>
@@ -1765,7 +1803,16 @@
             <label class="field">酒店名称<input id="macauHotelName" type="text" placeholder="澳门酒店名称" data-storage-key="stay.mo.name"></label>
             <label class="field">入住日期<input id="macauHotelDate" type="date" value="2026-07-01" data-storage-key="stay.mo.date"></label>
             <label class="field full">详细地址<input id="macauHotelAddress" type="text" placeholder="粘贴完整地址" data-storage-key="stay.mo.address"></label>
-            <label class="field">联系电话<input id="macauHotelPhone" type="text" placeholder="+853 ..." data-storage-key="stay.mo.phone"></label>
+            <label class="field">联系电话
+              <div class="phone-field">
+                <select id="macauHotelPhoneCode" aria-label="澳门住宿电话区号" data-storage-key="stay.mo.phoneCode">
+                  <option value="+86">🇨🇳 +86</option>
+                  <option value="+852">🇭🇰 +852</option>
+                  <option value="+853" selected>🇲🇴 +853</option>
+                </select>
+                <input id="macauHotelPhoneNumber" type="tel" inputmode="tel" placeholder="" data-storage-key="stay.mo.phoneNumber">
+              </div>
+            </label>
             <label class="field">订单号<input id="macauHotelOrder" type="text" placeholder="订单号" data-storage-key="stay.mo.order"></label>
             <label class="field full">入住备注<textarea id="macauHotelMemo" placeholder="入住时间、交通、行李寄存等" data-storage-key="stay.mo.memo"></textarea></label>
           </div>
@@ -1777,7 +1824,16 @@
             <label class="field">住宿或休息地点名称<input id="zhuhaiStayName" type="text" placeholder="酒店、青旅或其他休息地点" data-storage-key="stay.zh.name"></label>
             <label class="field">日期<input id="zhuhaiStayDate" type="date" value="2026-07-02" data-storage-key="stay.zh.date"></label>
             <label class="field full">详细地址<input id="zhuhaiStayAddress" type="text" placeholder="填写地址和前往日出地点的交通方式" data-storage-key="stay.zh.address"></label>
-            <label class="field">联系电话<input id="zhuhaiStayPhone" type="text" placeholder="联系电话" data-storage-key="stay.zh.phone"></label>
+            <label class="field">联系电话
+              <div class="phone-field">
+                <select id="zhuhaiStayPhoneCode" aria-label="珠海住宿电话区号" data-storage-key="stay.zh.phoneCode">
+                  <option value="+86" selected>🇨🇳 +86</option>
+                  <option value="+852">🇭🇰 +852</option>
+                  <option value="+853">🇲🇴 +853</option>
+                </select>
+                <input id="zhuhaiStayPhoneNumber" type="tel" inputmode="tel" placeholder="" data-storage-key="stay.zh.phoneNumber">
+              </div>
+            </label>
             <label class="field">订单号<input id="zhuhaiStayOrder" type="text" placeholder="订单号" data-storage-key="stay.zh.order"></label>
             <label class="field full">日出安排<textarea id="zhuhaiSunrisePlan" placeholder="日出地点、出发时间、交通方式、备用方案" data-storage-key="stay.zh.sunrise"></textarea></label>
             <label class="field full">行李寄存信息<textarea id="zhuhaiLuggageInfo" placeholder="寄存地点、营业时间、费用、取件提醒" data-storage-key="stay.zh.luggage"></textarea></label>
