@@ -428,6 +428,20 @@
       white-space: nowrap;
     }
 
+    .badge.success {
+      background: rgba(63, 118, 95, 0.14);
+      color: #34664f;
+    }
+
+    .badge.error {
+      background: rgba(200, 93, 77, 0.15);
+      color: #944033;
+    }
+
+    #planStatus {
+      white-space: normal;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -627,7 +641,58 @@
     .check-list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 9px;
+      gap: 12px;
+    }
+
+    .check-group {
+      overflow: hidden;
+      border: 1px solid rgba(108, 125, 140, 0.14);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.52);
+    }
+
+    .check-group summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 48px;
+      padding: 13px 14px;
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 800;
+      list-style: none;
+    }
+
+    .check-group summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .check-group summary::after {
+      content: "⌄";
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1;
+      transition: transform 0.2s ease;
+    }
+
+    .check-group[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .check-tag {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .check-items {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      padding: 0 12px 12px;
     }
 
     .check-item {
@@ -635,7 +700,7 @@
       align-items: flex-start;
       gap: 10px;
       padding: 11px 12px;
-      border: 1px solid rgba(108, 125, 140, 0.14);
+      border: 1px solid rgba(108, 125, 140, 0.12);
       border-radius: 11px;
       background: rgba(255, 255, 255, 0.72);
     }
@@ -701,65 +766,187 @@
       line-height: 1.5;
     }
 
-    .day-card {
-      position: relative;
-      overflow: hidden;
+    .plan-form {
+      padding: 13px;
+      border: 1px solid rgba(108, 125, 140, 0.15);
+      border-radius: 14px;
+      background: rgba(250, 252, 253, 0.72);
     }
 
-    .day-card::after {
-      content: attr(data-region);
-      position: absolute;
-      right: 14px;
-      bottom: -13px;
-      color: rgba(35, 33, 30, 0.04);
-      font-size: 70px;
-      font-weight: 900;
-      pointer-events: none;
+    .plan-message,
+    .plan-status {
+      min-height: 22px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
     }
 
-    .timeline {
-      position: relative;
+    .plan-message.error,
+    .plan-status.error {
+      color: #9b392f;
+    }
+
+    .plan-message.success,
+    .plan-status.success {
+      color: #2f7658;
+    }
+
+    .plan-list {
       display: grid;
-      gap: 15px;
-      margin-bottom: 16px;
+      gap: 14px;
     }
 
-    .timeline::before {
-      content: "";
-      position: absolute;
-      top: 7px;
-      bottom: 7px;
-      left: 16px;
-      width: 1px;
-      background: var(--line);
+    .plan-list-card {
+      margin-top: 16px;
     }
 
-    .timeline-item {
-      position: relative;
-      z-index: 1;
-      padding-left: 44px;
+    .plan-day {
+      display: grid;
+      gap: 9px;
     }
 
-    .timeline-dot {
-      position: absolute;
-      top: 4px;
-      left: 9px;
-      width: 15px;
-      height: 15px;
-      border: 4px solid #fff;
-      border-radius: 50%;
-      background: var(--accent);
+    .plan-day-title {
+      margin: 0;
+      color: #394756;
+      font-size: 16px;
+    }
+
+    .plan-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: start;
+      padding: 13px;
+      border: 1px solid rgba(108, 125, 140, 0.14);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.74);
+    }
+
+    .plan-item[data-traveler="traveler_a"] {
+      box-shadow: inset 4px 0 0 rgba(200, 93, 77, 0.72);
+    }
+
+    .plan-item[data-traveler="traveler_b"] {
+      box-shadow: inset 4px 0 0 rgba(79, 127, 156, 0.72);
+    }
+
+    .plan-avatar {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+      border: 3px solid #fff;
+      border-radius: 13px;
+      background: var(--paper-deep);
       box-shadow: 0 0 0 1px var(--line);
     }
 
-    .timeline-item strong {
-      display: block;
+    .plan-body {
+      min-width: 0;
     }
 
-    .timeline-item p {
+    .plan-meta {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      margin-bottom: 5px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .city-tag {
+      display: inline-flex;
+      min-height: 22px;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(79, 127, 156, 0.12);
+      color: #3e667e;
+      font-weight: 700;
+    }
+
+    .plan-title {
+      margin: 0;
+      overflow-wrap: anywhere;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .plan-detail {
       margin: 4px 0 0;
       color: var(--muted);
       line-height: 1.65;
+      overflow-wrap: anywhere;
+    }
+
+    .plan-actions {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .mini-button {
+      min-width: 40px;
+      min-height: 34px;
+      padding: 5px 8px;
+      border: 0;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.44);
+      color: #4b5866;
+    }
+
+    .mini-button:hover {
+      background: rgba(255, 255, 255, 0.84);
+      color: var(--ink);
+    }
+
+    .mini-button.danger {
+      color: #a73d2e;
+    }
+
+    .mini-button.danger:hover {
+      background: #fff0ec;
+    }
+
+    .plan-edit-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(22, 28, 36, 0.22);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+    }
+
+    .plan-edit-overlay[hidden] {
+      display: none;
+    }
+
+    .plan-edit-panel {
+      width: min(620px, 100%);
+      max-height: min(720px, calc(100vh - 36px));
+      overflow: auto;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 24px 60px rgba(25, 35, 48, 0.22);
+    }
+
+    .plan-edit-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .plan-edit-header h3 {
+      margin: 0;
+      font-size: 20px;
     }
 
     .expense-toolbar {
@@ -985,34 +1172,89 @@
       text-align: center;
     }
 
-    .reminder-list {
+    .notice-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
+      gap: 16px;
     }
 
-    .reminder-list li {
+    .rule-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .rule-item {
+      display: grid;
+      gap: 6px;
       padding: 12px;
       border: 1px solid rgba(108, 125, 140, 0.14);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.72);
-      line-height: 1.6;
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.66);
+      line-height: 1.65;
     }
 
-    .lined-notes {
-      min-height: 340px !important;
-      padding: 3px 12px !important;
-      border: 0 !important;
-      border-left: 3px solid var(--accent) !important;
-      border-radius: 0 !important;
-      background:
-        linear-gradient(rgba(255, 255, 255, 0.9) 31px, rgba(214, 224, 229, 0.78) 32px) !important;
-      background-size: 100% 32px !important;
-      line-height: 32px !important;
-      box-shadow: none !important;
+    .rule-item strong {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      color: #2f3b48;
+      font-size: 15px;
+    }
+
+    .rule-item p,
+    .rule-item ul {
+      margin: 0;
+      color: #596674;
+    }
+
+    .rule-item ul {
+      display: grid;
+      gap: 4px;
+      padding-left: 20px;
+    }
+
+    .rule-tag {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 22px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .rule-tag.info {
+      background: rgba(79, 127, 156, 0.14);
+      color: #3d6680;
+    }
+
+    .rule-tag.ok {
+      background: rgba(63, 118, 95, 0.14);
+      color: #34664f;
+    }
+
+    .rule-tag.warn {
+      background: rgba(216, 154, 50, 0.16);
+      color: #74531f;
+    }
+
+    .rule-tag.danger {
+      background: rgba(200, 93, 77, 0.16);
+      color: #944033;
+    }
+
+    .notice-source {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .notice-source a {
+      color: #476d86;
     }
 
     .footer {
@@ -1025,7 +1267,8 @@
 
     @media (max-width: 900px) {
       .traveler-columns,
-      .app-list {
+      .app-list,
+      .notice-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -1088,7 +1331,7 @@
 
       .field-grid,
       .check-list,
-      .reminder-list {
+      .check-items {
         grid-template-columns: 1fr;
       }
 
@@ -1138,6 +1381,15 @@
       .expense-date {
         grid-column: 1 / -1;
       }
+
+      .plan-item {
+        grid-template-columns: auto 1fr;
+      }
+
+      .plan-actions {
+        grid-column: 2;
+        justify-content: flex-start;
+      }
     }
 
     @media (max-width: 360px) {
@@ -1171,7 +1423,8 @@
 
       .card,
       .traveler-card,
-      .status-pill {
+      .status-pill,
+      .plan-edit-panel {
         background: rgba(255, 255, 255, 0.92);
       }
     }
@@ -1342,22 +1595,72 @@
         <article class="card wide">
           <h3 class="card-title">出行准备清单</h3>
           <div id="checkList" class="check-list">
-            <label class="check-item"><input type="checkbox" data-check-key="id-card"><span>身份证</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="permit"><span>港澳通行证</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="endorsement"><span>有效签注</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="hkd-cash"><span>少量港币现金</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="bank-card"><span>银行卡</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="phone"><span>手机</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="charger"><span>充电器</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="cable"><span>充电线</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="power-bank"><span>充电宝</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="adapter"><span>英标转换插头</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="roaming"><span>港澳流量卡或漫游套餐</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="octopus"><span>八达通或其他交通支付方式</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="umbrella"><span>雨伞或轻便雨衣</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="water"><span>饮用水</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="medicine"><span>常用药</span></label>
-            <label class="check-item"><input type="checkbox" data-check-key="tissue"><span>纸巾和湿巾</span></label>
+            <details class="check-group" open>
+              <summary>证件与支付 <span class="check-tag">必备</span></summary>
+              <div class="check-items">
+                <label class="check-item"><input type="checkbox" data-check-key="permit"><span>港澳通行证</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="endorsement"><span>确认有效签注</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="id-card"><span>身份证</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="bank-card"><span>银行卡</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="tickets-hotel-screenshots"><span>车票和住宿订单截图</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="phone"><span>手机</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="hkd-cash"><span>少量港币</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="mop-cash"><span>少量澳门币</span></label>
+              </div>
+            </details>
+
+            <details class="check-group" open>
+              <summary>洗护与住宿用品 <span class="check-tag">建议携带</span></summary>
+              <div class="check-items">
+                <label class="check-item"><input type="checkbox" data-check-key="disposable-towel"><span>一次性浴巾或毛巾</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="disposable-toilet-seat"><span>一次性马桶垫</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="toothbrush"><span>牙刷</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="toothpaste"><span>牙膏</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="shampoo"><span>洗发用品</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="conditioner"><span>护发用品</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="body-wash"><span>沐浴用品</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="wet-wipes"><span>湿巾</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="tissue"><span>纸巾</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="personal-hygiene"><span>卫生用品</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="sun-umbrella"><span>遮阳伞</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="comfortable-shoes"><span>舒适的运动鞋</span></label>
+              </div>
+            </details>
+
+            <details class="check-group">
+              <summary>电子设备 <span class="check-tag">必备 / 建议</span></summary>
+              <div class="check-items">
+                <label class="check-item"><input type="checkbox" data-check-key="adapter"><span>英标转换插头</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="charger"><span>手机充电器</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="cable"><span>充电线</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="power-bank"><span>充电宝</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="earphones"><span>耳机</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="roaming"><span>港澳流量卡或漫游套餐</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="octopus"><span>八达通或其他交通支付方式</span></label>
+              </div>
+            </details>
+
+            <details class="check-group">
+              <summary>按个人需要 <span class="check-tag">可选</span></summary>
+              <div class="check-items">
+                <label class="check-item"><input type="checkbox" data-check-key="disposable-bedding"><span>一次性床上四件套（可选）</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="filtered-shower-head"><span>便携过滤花洒（可选）</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="travel-kettle"><span>便携烧水壶（可选）</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="portable-door-lock"><span>酒店防盗门阻或便携门锁（可选）</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="medicine"><span>常用药</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="light-raincoat"><span>轻便雨衣</span></label>
+              </div>
+            </details>
+
+            <details class="check-group">
+              <summary>摄影设备 <span class="check-tag">摄影可选</span></summary>
+              <div class="check-items">
+                <label class="check-item"><input type="checkbox" data-check-key="backup-phone"><span>备用手机或旧手机（可选）</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="film-camera"><span>一次性胶片相机（可选）</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="dji-pocket"><span>DJI Pocket 3 或其他运动相机（可选）</span></label>
+                <label class="check-item"><input type="checkbox" data-check-key="small-fill-light"><span>小型补光灯（可选）</span></label>
+              </div>
+            </details>
           </div>
         </article>
 
@@ -1450,56 +1753,106 @@
       <div class="section-header">
         <div>
           <h2>足迹</h2>
-          <p>每天的临时备注会自动保存在当前浏览器。</p>
+          <p>双方共同维护的行程规划，保存到 Supabase 后两台设备会同步显示。</p>
         </div>
-        <span class="badge">4 天路线</span>
+        <span class="badge">共享规划 · Realtime</span>
       </div>
 
-      <div class="grid">
-        <article class="card day-card" data-region="HK">
-          <h3 class="card-title">6 月 30 日 · 香港</h3>
-          <div class="timeline">
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>抵达深圳</strong><p>整理行李、补水后前往罗湖口岸。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>罗湖口岸入境香港</strong><p>过关后确认东铁线方向和支付方式。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>乘东铁线进入市区</strong><p>进入香港市区后按天气和体力调整行程。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>香港第一日行程</strong><p>预留午休、避雨和补给时间。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>入住香港住宿</strong><p>核对次日香港行程和晚上去澳门路线。</p></div>
+      <datalist id="tripDateOptions">
+        <option value="2026-06-30"></option>
+        <option value="2026-07-01"></option>
+        <option value="2026-07-02"></option>
+        <option value="2026-07-03"></option>
+      </datalist>
+
+      <div class="traveler-columns">
+        <article class="traveler-card" data-traveler="traveler_a">
+          <div class="traveler-header">
+            <div class="avatar-shell">
+              <img class="avatar" data-avatar="traveler_a" src="./assets/avatar-a.jpg" alt="旅行者 A 头像">
+              <div class="avatar-fallback" data-avatar-fallback="traveler_a">A</div>
+            </div>
+            <div class="traveler-name">
+              <h3><span data-traveler-name="traveler_a">旅行者 A</span> 添加计划</h3>
+              <p>固定保存为 traveler_a</p>
+            </div>
           </div>
-          <label class="field full">临时备注<textarea data-storage-key="footprint.0630" placeholder="写下当天临时安排、排队情况或备选路线"></textarea></label>
+
+          <form class="plan-form" data-plan-form data-traveler="traveler_a">
+            <div class="field-grid">
+              <label class="field">日期<input name="event_date" type="date" list="tripDateOptions" required></label>
+              <label class="field">时间<input name="event_time" type="time"></label>
+              <label class="field">城市<select name="city" required></select></label>
+              <label class="field">计划标题<input name="title" type="text" maxlength="80" placeholder="例如：尖沙咀拍照" required></label>
+              <label class="field full">地点<input name="location" type="text" maxlength="120" placeholder="例如：星光大道"></label>
+              <label class="field full">详细备注<textarea name="note" maxlength="500" placeholder="天气、排队、备用方案或集合提醒"></textarea></label>
+              <button class="button primary" type="submit">添加计划</button>
+            </div>
+          </form>
+          <div class="plan-message" data-plan-message="traveler_a" aria-live="polite"></div>
         </article>
 
-        <article class="card day-card" data-region="HK→MO">
-          <h3 class="card-title">7 月 1 日 · 香港 → 澳门</h3>
-          <div class="timeline">
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>香港第二日行程</strong><p>白天继续香港行程，留出取行李和过关时间。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>晚上前往港珠澳大桥香港口岸</strong><p>提前确认巴士购票、口岸交通和末班时间。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>乘穿梭巴士前往澳门</strong><p>保存车票、证件和住宿地址截图。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>抵达澳门并入住</strong><p>根据抵达时间决定是否安排夜间补给。</p></div>
+        <article class="traveler-card" data-traveler="traveler_b">
+          <div class="traveler-header">
+            <div class="avatar-shell">
+              <img class="avatar" data-avatar="traveler_b" src="./assets/avatar-b.jpg" alt="旅行者 B 头像">
+              <div class="avatar-fallback" data-avatar-fallback="traveler_b">B</div>
+            </div>
+            <div class="traveler-name">
+              <h3><span data-traveler-name="traveler_b">旅行者 B</span> 添加计划</h3>
+              <p>固定保存为 traveler_b</p>
+            </div>
           </div>
-          <label class="field full">临时备注<textarea data-storage-key="footprint.0701" placeholder="记录香港口岸、巴士和澳门入住注意事项"></textarea></label>
-        </article>
 
-        <article class="card day-card" data-region="MO→ZH">
-          <h3 class="card-title">7 月 2 日 · 澳门 → 珠海</h3>
-          <div class="timeline">
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>澳门一日行程</strong><p>按天气和体力安排景点，注意防晒和补水。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>晚上通过口岸前往珠海</strong><p>计划使用青茂口岸，出发前确认开放时间。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>入住珠海或前往休息地点</strong><p>确认洗漱、充电和短休安排。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>确认日出时间和交通</strong><p>查好日出时间、天气、打车或公交方案。</p></div>
-          </div>
-          <label class="field full">临时备注<textarea data-storage-key="footprint.0702" placeholder="记录澳门到珠海口岸、住宿和日出准备"></textarea></label>
+          <form class="plan-form" data-plan-form data-traveler="traveler_b">
+            <div class="field-grid">
+              <label class="field">日期<input name="event_date" type="date" list="tripDateOptions" required></label>
+              <label class="field">时间<input name="event_time" type="time"></label>
+              <label class="field">城市<select name="city" required></select></label>
+              <label class="field">计划标题<input name="title" type="text" maxlength="80" placeholder="例如：晚餐备选" required></label>
+              <label class="field full">地点<input name="location" type="text" maxlength="120" placeholder="例如：酒店附近"></label>
+              <label class="field full">详细备注<textarea name="note" maxlength="500" placeholder="交通、预算、营业时间或注意事项"></textarea></label>
+              <button class="button primary" type="submit">添加计划</button>
+            </div>
+          </form>
+          <div class="plan-message" data-plan-message="traveler_b" aria-live="polite"></div>
         </article>
+      </div>
 
-        <article class="card day-card" data-region="ZH→GZ">
-          <h3 class="card-title">7 月 3 日 · 珠海 → 广州</h3>
-          <div class="timeline">
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>清晨前往日出地点</strong><p>提前出门，带水、纸巾和防蚊用品。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>观看珠海日出</strong><p>根据天气决定主方案或备用观景点。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>返回整理行李和休息</strong><p>检查证件、充电器和遗漏物品。</p></div>
-            <div class="timeline-item"><span class="timeline-dot"></span><strong>中午乘车前往广州</strong><p>按车票时间前往车站，预留安检和进站时间。</p></div>
+      <article class="card wide plan-list-card">
+        <div class="section-header">
+          <div>
+            <h3 class="card-title">共同足迹</h3>
+            <p>按日期、时间和创建顺序排列；无时间记录排在当天具体时间之后。</p>
           </div>
-          <label class="field full">临时备注<textarea data-storage-key="footprint.0703" placeholder="记录日出安排、返程车次和广州衔接"></textarea></label>
-        </article>
+          <span id="planStatus" class="badge" aria-live="polite">正在读取共享足迹</span>
+        </div>
+        <div id="planList" class="plan-list"></div>
+      </article>
+
+      <div id="planEditOverlay" class="plan-edit-overlay" hidden>
+        <div class="plan-edit-panel" role="dialog" aria-modal="true" aria-labelledby="planEditTitle">
+          <div class="plan-edit-header">
+            <div>
+              <h3 id="planEditTitle">编辑计划</h3>
+              <p class="muted">保存后会同步到双方设备。</p>
+            </div>
+            <button class="mini-button" type="button" data-plan-edit-close aria-label="关闭编辑面板">关闭</button>
+          </div>
+          <form id="planEditForm" class="plan-form">
+            <div class="field-grid">
+              <label class="field">日期<input name="event_date" type="date" list="tripDateOptions" required></label>
+              <label class="field">时间<input name="event_time" type="time"></label>
+              <label class="field">城市<select name="city" required></select></label>
+              <label class="field">标题<input name="title" type="text" maxlength="80" required></label>
+              <label class="field full">地点<input name="location" type="text" maxlength="120"></label>
+              <label class="field full">备注<textarea name="note" maxlength="500"></textarea></label>
+              <button class="button primary" type="submit">保存修改</button>
+              <button class="button" type="button" data-plan-edit-close>取消</button>
+            </div>
+          </form>
+          <div id="planEditMessage" class="plan-message" aria-live="polite"></div>
+        </div>
       </div>
     </section>
 
@@ -1595,48 +1948,183 @@
       <div class="section-header">
         <div>
           <h2>注意事项</h2>
-          <p>固定提醒保留在页面中，个人临时提醒保存在当前浏览器。</p>
+          <p>只保留当地规则、公共交通、通关和容易踩坑的文明提醒。</p>
         </div>
-        <span class="badge">证件 · 天气 · 口岸 · 车票</span>
+        <span class="badge">法律法规 · 公共秩序 · 通关</span>
       </div>
 
-      <div class="grid">
-        <article class="card wide">
-          <h3 class="card-title">固定提醒</h3>
-          <ul class="reminder-list">
-            <li>检查港澳通行证和签注</li>
-            <li>保存酒店地址离线截图</li>
-            <li>确认港珠澳大桥巴士时间</li>
-            <li>确认澳门和珠海口岸开放时间</li>
-            <li>提前查看珠海日出时间</li>
-            <li>关注雷暴、暴雨和台风信息</li>
-            <li>高温天气注意补水和防晒</li>
-            <li>确认珠海前往广州的车票</li>
-          </ul>
+      <div class="notice-grid">
+        <article class="card">
+          <h3 class="card-title">🇭🇰 香港注意事项</h3>
+          <div class="rule-list">
+            <div class="rule-item">
+              <strong><span class="rule-tag info">交通</span> 港铁与公共交通</strong>
+              <ul>
+                <li>港铁车厢及相关禁止饮食区域内不要吃东西或喝饮料。</li>
+                <li>不要在车厢内大声喧哗或使用手机外放。</li>
+                <li>搭乘头等车厢前，确认自己持有有效头等车票或已完成相应确认。</li>
+                <li>上下车先下后上，不要阻挡车门。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag danger">吸烟</span> 禁烟区和替代吸烟产品</strong>
+              <ul>
+                <li>法定禁烟区、公共交通工具和相关设施内禁止吸烟。</li>
+                <li>只在明确允许吸烟的区域吸烟。</li>
+                <li>电子烟、加热烟等替代吸烟产品不要携带入境香港。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag warn">环境卫生</span> 垃圾、吐痰和野生动物</strong>
+              <ul>
+                <li>不要乱扔垃圾，不要随地吐痰。</li>
+                <li>不要把垃圾放在垃圾桶旁边或公共区域。</li>
+                <li>不要喂食野生动物、野猪、猴子、野鸟或野鸽。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag info">道路安全</span> 过马路和乘车</strong>
+              <ul>
+                <li>按照红绿灯、斑马线、行人天桥和地下通道过马路。</li>
+                <li>不要在过马路时低头玩手机或停在斑马线上拍照。</li>
+                <li>不要随意横穿马路，乘坐车辆时按要求系好安全带。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag ok">通关</span> 入境物品与证件</strong>
+              <ul>
+                <li>随身携带港澳通行证等有效证件。</li>
+                <li>年满 18 岁旅客，香港烟草免税额为 19 支香烟；超过免税额度应依法申报。</li>
+                <li>不要携带电子烟、加热烟等禁止进口的替代吸烟产品。</li>
+              </ul>
+            </div>
+          </div>
         </article>
 
         <article class="card">
-          <h3 class="card-title">数据与备份</h3>
+          <h3 class="card-title">🇲🇴 澳门注意事项</h3>
+          <div class="rule-list">
+            <div class="rule-item">
+              <strong><span class="rule-tag danger">电子烟</span> 出入境前检查行李</strong>
+              <ul>
+                <li>禁止携带电子烟产品出入境澳门。</li>
+                <li>出发前检查背包、口袋和行李箱，避免误带电子烟、烟弹或相关产品。</li>
+                <li>违法携带电子烟出入境，可能被罚款 MOP 4,000。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag danger">吸烟</span> 只在明确允许区域吸烟</strong>
+              <ul>
+                <li>室内公共场所和其他禁烟区域内不要吸烟。</li>
+                <li>巴士站、公共交通设施和现场标明禁烟的地方不要吸烟。</li>
+                <li>在禁烟区域违法吸烟，可能被罚款 MOP 1,500。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag warn">环境卫生</span> 垃圾和吐痰</strong>
+              <ul>
+                <li>不要乱扔纸巾、饮料杯、烟蒂或其他垃圾。</li>
+                <li>垃圾桶已满时，也不要把垃圾放在垃圾桶旁边。</li>
+                <li>乱抛垃圾等行为可能被罚款 MOP 600。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag info">道路安全</span> 过街行为</strong>
+              <ul>
+                <li>按照交通信号灯和斑马线通行，不要闯红灯。</li>
+                <li>不要在过马路时玩手机，也不要停在斑马线上拍照。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag ok">住宿</span> 预订合法住宿</strong>
+              <ul>
+                <li>只预订持牌酒店或合法住宿设施。</li>
+                <li>不要入住来源不明的所谓私人短租或非法旅馆。</li>
+                <li>预订前检查订房平台、酒店名称和正式地址。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag info">娱乐场</span> 年龄和现场规定</strong>
+              <ul>
+                <li>未满 21 岁不得进入澳门娱乐场。</li>
+                <li>进入娱乐场后遵守现场拍摄、录音和设备管理规定。</li>
+                <li>需要拍照或录像时，先查看现场标识或询问工作人员。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag ok">通关</span> 证件与管制区域</strong>
+              <ul>
+                <li>过关时随身携带实体港澳通行证。</li>
+                <li>使用自助通关设备时，按要求取下帽子、口罩或太阳镜，以便完成人脸识别。</li>
+                <li>不要在出入境管制区域随意拍照、录像或录音。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag warn">无人机</span> 未确认许可前不要起飞</strong>
+              <ul>
+                <li>不要在澳门随意放飞无人机。</li>
+                <li>计划使用无人机前，先查询澳门民航主管部门的最新限制、禁飞区和申报要求。</li>
+              </ul>
+            </div>
+
+            <div class="rule-item">
+              <strong><span class="rule-tag info">文明提醒</span> 公共空间</strong>
+              <ul>
+                <li>不要乱拍陌生人、住宅内部或私人空间。</li>
+                <li>公共交通优先座应主动礼让有需要人士。</li>
+                <li>港珠澳大桥跨境主桥不是普通步行游览道路，应使用合法交通方式通行。</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">📝 双方补充提醒</h3>
+          <p class="muted">仅保存在当前设备，不会通过 Supabase 同步。</p>
+          <div class="field-grid">
+            <label class="field">提醒标题<input type="text" data-storage-key="notice.shared.title" placeholder="例如：过关前集合"></label>
+            <label class="field">紧急程度
+              <select data-storage-key="notice.shared.urgency">
+                <option value="普通">普通</option>
+                <option value="重要">重要</option>
+                <option value="紧急">紧急</option>
+              </select>
+            </label>
+            <label class="field full">提醒内容<textarea data-storage-key="notice.shared.content" placeholder="写下双方临时约定、备用电话、集合点或当天需要确认的事项"></textarea></label>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3 class="card-title">💾 数据与备份</h3>
           <p class="muted">
-            导出当前浏览器中的准备清单、住宿、足迹备注和注意事项；已加载的开支仅作为当前页面快照，不替代 Supabase 数据备份。
+            导出当前浏览器 localStorage 中的准备清单、住宿和双方补充提醒；已加载的开支与足迹只作为当前页面快照，不替代 Supabase 数据备份。
           </p>
           <button id="exportButton" class="button" type="button">
             导出本地备份
           </button>
         </article>
-
-        <article class="card wide">
-          <h3 class="card-title">个人临时提醒</h3>
-          <label class="field full">
-            <textarea
-              id="personalNotice"
-              class="lined-notes"
-              data-storage-key="notice.personal"
-              placeholder="写下临时提醒、备用电话、集合点或当天需要确认的事项"
-            ></textarea>
-          </label>
-        </article>
       </div>
+
+      <p class="notice-source">
+        最后整理：2026 年 6 月。规则和罚款可能调整，请以香港、澳门政府最新公告、口岸规定及现场标识为准。
+        官方入口：
+        <a href="https://www.mtr.com.hk/" target="_blank" rel="noreferrer">港铁</a>、
+        <a href="https://www.customs.gov.hk/" target="_blank" rel="noreferrer">香港海关</a>、
+        <a href="https://www.taco.gov.hk/" target="_blank" rel="noreferrer">香港控烟酒办公室</a>、
+        <a href="https://www.macaotourism.gov.mo/" target="_blank" rel="noreferrer">澳门旅游局</a>、
+        <a href="https://www.aacm.gov.mo/" target="_blank" rel="noreferrer">澳门民航局</a>。
+      </p>
     </section>
 
     <p class="footer">
@@ -1667,11 +2155,18 @@
     const STORAGE_PREFIX = "hkmoTrip2026";
     const CURRENCIES = ["CNY", "HKD", "MOP"];
     const CATEGORIES = ["交通", "餐饮", "住宿", "门票", "购物", "日用品", "其他"];
+    const PLAN_CITIES = ["深圳", "香港", "澳门", "珠海", "广州", "其他"];
+    const PLAN_TRAVEL_DATES = ["2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03"];
 
     let supabaseClient = null;
     let expenses = [];
+    let tripPlanItems = [];
     let expenseChannel = null;
+    let planChannel = null;
     let isLoadingExpenses = false;
+    let isLoadingPlanItems = false;
+    let planReloadTimer = null;
+    let editingPlanItemId = null;
 
     document.addEventListener("DOMContentLoaded", initializeApp);
 
@@ -1681,10 +2176,14 @@
       initializeChecklist();
       initializeLocalStorageForms();
       initializeExpenseForms();
+      initializeTripPlanForms();
+      initializePlanEdit();
       initializeSupabase();
       initializeExport();
       loadExpenses();
       subscribeToExpenseChanges();
+      loadTripPlanItems();
+      subscribeToTripPlanChanges();
     }
 
     function initializeTravelers() {
@@ -1791,9 +2290,12 @@
           element.value = savedValue;
         }
 
-        element.addEventListener("input", () => {
+        const saveValue = () => {
           localStorage.setItem(key, element.value);
-        });
+        };
+
+        element.addEventListener("input", saveValue);
+        element.addEventListener("change", saveValue);
       });
     }
 
@@ -1809,6 +2311,652 @@
 
         form.addEventListener("submit", handleExpenseSubmit);
       });
+    }
+
+    function initializeTripPlanForms() {
+      document.querySelectorAll("[data-plan-form]").forEach((form) => {
+        fillSelect(form.elements.city, PLAN_CITIES);
+        setDefaultPlanDate(form);
+        form.addEventListener("submit", handleTripPlanSubmit);
+      });
+    }
+
+    function initializePlanEdit() {
+      const overlay = document.getElementById("planEditOverlay");
+      const form = document.getElementById("planEditForm");
+      if (!overlay || !form) {
+        return;
+      }
+
+      fillSelect(form.elements.city, PLAN_CITIES);
+      form.addEventListener("submit", handlePlanEditSubmit);
+
+      overlay.querySelectorAll("[data-plan-edit-close]").forEach((button) => {
+        button.addEventListener("click", closePlanEditor);
+      });
+
+      overlay.addEventListener("click", (event) => {
+        if (event.target === overlay) {
+          closePlanEditor();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !overlay.hidden) {
+          closePlanEditor();
+        }
+      });
+    }
+
+    async function loadTripPlanItems() {
+      if (!supabaseClient) {
+        tripPlanItems = [];
+        setPlanStatus("共享足迹暂时无法读取", "error");
+        renderTripPlanItems("Supabase 脚本未加载，当前无法读取共享足迹。");
+        return;
+      }
+
+      if (isLoadingPlanItems) {
+        return;
+      }
+
+      isLoadingPlanItems = true;
+      try {
+        const { data, error } = await supabaseClient
+          .from("trip_plan_items")
+          .select("*")
+          .eq("trip_id", TRIP_ID)
+          .order("event_date", { ascending: true })
+          .order("event_time", { ascending: true, nullsFirst: false })
+          .order("created_at", { ascending: true });
+
+        if (error) {
+          throw error;
+        }
+
+        tripPlanItems = Array.isArray(data) ? sortTripPlanItems(data) : [];
+        renderTripPlanItems();
+        setPlanStatus("共享足迹已同步", "success");
+      } catch (error) {
+        tripPlanItems = [];
+        if (isTripPlanTableMissingError(error)) {
+          console.warn("Trip plan table is not configured yet:", error);
+          setPlanStatus("共享足迹数据库尚未配置", "error");
+          renderTripPlanItems("共享足迹数据库尚未配置。请先在 Supabase SQL Editor 中运行 supabase-trip-plan.sql。");
+        } else {
+          console.error("Failed to load trip plan items:", error);
+          setPlanStatus(`共享足迹读取失败：${getReadableError(error)}`, "error");
+          renderTripPlanItems("共享足迹读取失败，请稍后重试。");
+        }
+      } finally {
+        isLoadingPlanItems = false;
+      }
+    }
+
+    async function handleTripPlanSubmit(event) {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      const traveler = form.dataset.traveler;
+      const submitButton = form.querySelector("button[type='submit']");
+      const originalText = submitButton.textContent;
+      const payload = buildTripPlanPayload(form, traveler);
+
+      if (!payload.ok) {
+        setPlanMessage(traveler, payload.message, "error");
+        return;
+      }
+
+      if (!supabaseClient) {
+        setPlanMessage(traveler, "数据库连接失败：当前无法保存共享足迹。", "error");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "正在保存……";
+      setPlanMessage(traveler, "正在保存……", "");
+      setPlanStatus("正在保存共享足迹", "");
+
+      try {
+        await addTripPlanItem(traveler, payload.data);
+        form.reset();
+        setDefaultPlanDate(form);
+        form.elements.city.value = "深圳";
+        setPlanMessage(traveler, "已添加", "success");
+        await loadTripPlanItems();
+      } catch (error) {
+        console.error("Failed to add trip plan item:", error);
+        const message = isTripPlanTableMissingError(error)
+          ? "共享足迹数据库尚未配置。请先运行 supabase-trip-plan.sql。"
+          : `保存失败：${getReadableError(error)}`;
+        setPlanMessage(traveler, message, "error");
+        setPlanStatus(message, "error");
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
+    }
+
+    function buildTripPlanPayload(form, traveler) {
+      if (!["traveler_a", "traveler_b"].includes(traveler)) {
+        return { ok: false, message: "traveler 必须是 traveler_a 或 traveler_b" };
+      }
+
+      const result = buildTripPlanFormData(form);
+      if (!result.ok) {
+        return result;
+      }
+
+      return {
+        ok: true,
+        data: {
+          trip_id: TRIP_ID,
+          traveler,
+          ...result.data
+        }
+      };
+    }
+
+    function buildTripPlanFormData(form) {
+      const eventDate = form.elements.event_date.value;
+      const eventTime = form.elements.event_time.value;
+      const city = form.elements.city.value.trim();
+      const title = form.elements.title.value.trim();
+      const location = form.elements.location.value.trim();
+      const note = form.elements.note.value.trim();
+
+      if (!eventDate) {
+        return { ok: false, message: "日期不能为空" };
+      }
+
+      if (!isValidDateValue(eventDate)) {
+        return { ok: false, message: "日期格式不正确" };
+      }
+
+      if (!city || !PLAN_CITIES.includes(city)) {
+        return { ok: false, message: "城市不能为空" };
+      }
+
+      if (!title) {
+        return { ok: false, message: "计划标题不能为空" };
+      }
+
+      if (title.length > 80) {
+        return { ok: false, message: "计划标题不能超过 80 个字" };
+      }
+
+      if (eventTime && !isValidTimeValue(eventTime)) {
+        return { ok: false, message: "时间格式不正确" };
+      }
+
+      if (location.length > 120) {
+        return { ok: false, message: "地点不能超过 120 个字" };
+      }
+
+      if (note.length > 500) {
+        return { ok: false, message: "备注不能超过 500 个字" };
+      }
+
+      return {
+        ok: true,
+        data: {
+          event_date: eventDate,
+          event_time: eventTime || null,
+          city,
+          title,
+          location,
+          note
+        }
+      };
+    }
+
+    async function addTripPlanItem(traveler, formData) {
+      if (!["traveler_a", "traveler_b"].includes(traveler)) {
+        throw new Error("traveler 必须是 traveler_a 或 traveler_b");
+      }
+
+      const { error } = await supabaseClient
+        .from("trip_plan_items")
+        .insert({
+          ...formData,
+          trip_id: TRIP_ID,
+          traveler
+        });
+
+      if (error) {
+        throw error;
+      }
+    }
+
+    async function updateTripPlanItem(id, formData) {
+      const { error } = await supabaseClient
+        .from("trip_plan_items")
+        .update({
+          ...formData,
+          updated_at: new Date().toISOString()
+        })
+        .eq("id", id)
+        .eq("trip_id", TRIP_ID);
+
+      if (error) {
+        throw error;
+      }
+    }
+
+    async function deleteTripPlanItem(id) {
+      const { error } = await supabaseClient
+        .from("trip_plan_items")
+        .delete()
+        .eq("id", id)
+        .eq("trip_id", TRIP_ID);
+
+      if (error) {
+        throw error;
+      }
+    }
+
+    function renderTripPlanItems(emptyMessage = "还没有共同规划的足迹，双方可以从下面开始添加。") {
+      const list = document.getElementById("planList");
+      if (!list) {
+        return;
+      }
+
+      list.replaceChildren();
+
+      if (tripPlanItems.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.textContent = emptyMessage;
+        list.append(empty);
+        return;
+      }
+
+      const groups = new Map();
+      tripPlanItems.forEach((item) => {
+        const groupKey = item.event_date || "其他日期";
+        if (!groups.has(groupKey)) {
+          groups.set(groupKey, []);
+        }
+        groups.get(groupKey).push(item);
+      });
+
+      groups.forEach((items, date) => {
+        const group = document.createElement("div");
+        group.className = "plan-day";
+
+        const title = document.createElement("h4");
+        title.className = "plan-day-title";
+        title.textContent = formatPlanDate(date);
+        group.append(title);
+
+        items.forEach((item) => {
+          group.append(createTripPlanElement(item));
+        });
+
+        list.append(group);
+      });
+    }
+
+    function createTripPlanElement(planItem) {
+      const traveler = TRAVELERS[planItem.traveler] ? planItem.traveler : "traveler_a";
+      const travelerConfig = TRAVELERS[traveler];
+
+      const item = document.createElement("div");
+      item.className = "plan-item";
+      item.dataset.traveler = traveler;
+
+      const avatar = document.createElement("img");
+      avatar.className = "plan-avatar";
+      avatar.src = travelerConfig.avatar;
+      avatar.alt = `${travelerConfig.name} 头像`;
+
+      const body = document.createElement("div");
+      body.className = "plan-body";
+
+      const meta = document.createElement("div");
+      meta.className = "plan-meta";
+
+      const name = document.createElement("span");
+      name.textContent = travelerConfig.name;
+
+      const time = document.createElement("span");
+      time.textContent = formatPlanTime(planItem.event_time);
+
+      const city = document.createElement("span");
+      city.className = "city-tag";
+      city.textContent = PLAN_CITIES.includes(planItem.city) ? planItem.city : "其他";
+
+      meta.append(name, time, city);
+
+      const title = document.createElement("h4");
+      title.className = "plan-title";
+      title.textContent = planItem.title || "未命名计划";
+
+      body.append(meta, title);
+
+      if (planItem.location) {
+        const location = document.createElement("p");
+        location.className = "plan-detail";
+        location.textContent = `地点：${planItem.location}`;
+        body.append(location);
+      }
+
+      if (planItem.note) {
+        const note = document.createElement("p");
+        note.className = "plan-detail";
+        note.textContent = planItem.note;
+        body.append(note);
+      }
+
+      const actions = document.createElement("div");
+      actions.className = "plan-actions";
+
+      const editButton = document.createElement("button");
+      editButton.className = "mini-button";
+      editButton.type = "button";
+      editButton.textContent = "编辑";
+      editButton.addEventListener("click", () => openPlanEditor(planItem.id));
+
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "mini-button danger";
+      deleteButton.type = "button";
+      deleteButton.textContent = "删除";
+      deleteButton.addEventListener("click", () => confirmDeleteTripPlanItem(planItem.id));
+
+      actions.append(editButton, deleteButton);
+      item.append(avatar, body, actions);
+      return item;
+    }
+
+    function openPlanEditor(id) {
+      const overlay = document.getElementById("planEditOverlay");
+      const form = document.getElementById("planEditForm");
+      if (!overlay || !form) {
+        return;
+      }
+
+      const planItem = tripPlanItems.find((item) => String(item.id) === String(id));
+      if (!planItem) {
+        setPlanStatus("找不到要编辑的计划", "error");
+        return;
+      }
+
+      editingPlanItemId = planItem.id;
+      form.elements.event_date.value = planItem.event_date || "";
+      form.elements.event_time.value = normalizeTimeValue(planItem.event_time);
+      form.elements.city.value = PLAN_CITIES.includes(planItem.city) ? planItem.city : "其他";
+      form.elements.title.value = planItem.title || "";
+      form.elements.location.value = planItem.location || "";
+      form.elements.note.value = planItem.note || "";
+      setPlanEditMessage("", "");
+      overlay.hidden = false;
+      form.elements.title.focus();
+    }
+
+    function closePlanEditor() {
+      const overlay = document.getElementById("planEditOverlay");
+      const form = document.getElementById("planEditForm");
+      if (overlay) {
+        overlay.hidden = true;
+      }
+      if (form) {
+        form.reset();
+      }
+      editingPlanItemId = null;
+      setPlanEditMessage("", "");
+    }
+
+    async function handlePlanEditSubmit(event) {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      const submitButton = form.querySelector("button[type='submit']");
+      const originalText = submitButton.textContent;
+      const payload = buildTripPlanFormData(form);
+
+      if (!payload.ok) {
+        setPlanEditMessage(payload.message, "error");
+        return;
+      }
+
+      if (!supabaseClient) {
+        setPlanEditMessage("数据库连接失败：当前无法更新共享足迹。", "error");
+        return;
+      }
+
+      if (editingPlanItemId === null) {
+        setPlanEditMessage("找不到要编辑的计划。", "error");
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = "正在保存……";
+      setPlanEditMessage("正在保存……", "");
+
+      try {
+        await updateTripPlanItem(editingPlanItemId, payload.data);
+        setPlanEditMessage("已更新", "success");
+        await loadTripPlanItems();
+        window.setTimeout(closePlanEditor, 350);
+      } catch (error) {
+        console.error("Failed to update trip plan item:", error);
+        const message = isTripPlanTableMissingError(error)
+          ? "共享足迹数据库尚未配置。请先运行 supabase-trip-plan.sql。"
+          : `更新失败：${getReadableError(error)}`;
+        setPlanEditMessage(message, "error");
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
+    }
+
+    async function confirmDeleteTripPlanItem(id) {
+      if (!window.confirm("确定删除这条计划吗？")) {
+        return;
+      }
+
+      if (!supabaseClient) {
+        setPlanStatus("数据库连接失败：当前无法删除共享足迹。", "error");
+        return;
+      }
+
+      setPlanStatus("正在删除共享足迹", "");
+
+      try {
+        await deleteTripPlanItem(id);
+        tripPlanItems = tripPlanItems.filter((item) => String(item.id) !== String(id));
+        renderTripPlanItems();
+        setPlanStatus("已删除", "success");
+        await loadTripPlanItems();
+      } catch (error) {
+        console.error("Failed to delete trip plan item:", error);
+        const message = isTripPlanTableMissingError(error)
+          ? "共享足迹数据库尚未配置。请先运行 supabase-trip-plan.sql。"
+          : `删除失败：${getReadableError(error)}`;
+        setPlanStatus(message, "error");
+      }
+    }
+
+    function subscribeToTripPlanChanges() {
+      if (!supabaseClient || planChannel) {
+        return;
+      }
+
+      try {
+        planChannel = supabaseClient
+          .channel("trip-plan-items-hkmo-2026")
+          .on(
+            "postgres_changes",
+            {
+              event: "*",
+              schema: "public",
+              table: "trip_plan_items",
+              filter: "trip_id=eq.hkmo-2026"
+            },
+            queueTripPlanReload
+          )
+          .subscribe((status, error) => {
+            if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+              console.error("Supabase trip plan subscription issue:", status, error);
+            }
+          });
+      } catch (error) {
+        console.error("Failed to subscribe to trip plan changes:", error);
+      }
+    }
+
+    function unsubscribeTripPlanChanges() {
+      if (planReloadTimer) {
+        window.clearTimeout(planReloadTimer);
+        planReloadTimer = null;
+      }
+
+      if (planChannel && supabaseClient) {
+        supabaseClient.removeChannel(planChannel);
+      }
+      planChannel = null;
+    }
+
+    function queueTripPlanReload() {
+      if (planReloadTimer) {
+        window.clearTimeout(planReloadTimer);
+      }
+
+      planReloadTimer = window.setTimeout(() => {
+        planReloadTimer = null;
+        loadTripPlanItems();
+      }, 180);
+    }
+
+    function setDefaultPlanDate(form) {
+      if (form.elements.event_date && !form.elements.event_date.value) {
+        form.elements.event_date.value = PLAN_TRAVEL_DATES[0];
+      }
+    }
+
+    function setPlanMessage(traveler, message, state) {
+      const messageElement = document.querySelector(`[data-plan-message="${traveler}"]`);
+      if (!messageElement) {
+        return;
+      }
+
+      messageElement.classList.remove("error", "success");
+      if (state) {
+        messageElement.classList.add(state);
+      }
+      messageElement.textContent = message;
+    }
+
+    function setPlanEditMessage(message, state) {
+      const messageElement = document.getElementById("planEditMessage");
+      if (!messageElement) {
+        return;
+      }
+
+      messageElement.classList.remove("error", "success");
+      if (state) {
+        messageElement.classList.add(state);
+      }
+      messageElement.textContent = message;
+    }
+
+    function setPlanStatus(message, state) {
+      const status = document.getElementById("planStatus");
+      if (!status) {
+        return;
+      }
+
+      status.classList.remove("error", "success");
+      if (state) {
+        status.classList.add(state);
+      }
+      status.textContent = message;
+    }
+
+    function sortTripPlanItems(items) {
+      return [...items].sort((a, b) => {
+        const dateCompare = String(a.event_date || "").localeCompare(String(b.event_date || ""));
+        if (dateCompare !== 0) {
+          return dateCompare;
+        }
+
+        const timeA = a.event_time ? normalizeTimeValue(a.event_time) : "99:99";
+        const timeB = b.event_time ? normalizeTimeValue(b.event_time) : "99:99";
+        const timeCompare = timeA.localeCompare(timeB);
+        if (timeCompare !== 0) {
+          return timeCompare;
+        }
+
+        return new Date(a.created_at || 0) - new Date(b.created_at || 0);
+      });
+    }
+
+    function formatPlanDate(value) {
+      if (value === "其他日期") {
+        return value;
+      }
+
+      const parts = String(value).split("-").map(Number);
+      if (parts.length !== 3 || parts.some((part) => Number.isNaN(part))) {
+        return "其他日期";
+      }
+
+      return `${parts[1]} 月 ${parts[2]} 日`;
+    }
+
+    function formatPlanTime(value) {
+      const time = normalizeTimeValue(value);
+      return time ? time : "未定时间";
+    }
+
+    function normalizeTimeValue(value) {
+      if (!value) {
+        return "";
+      }
+      return String(value).slice(0, 5);
+    }
+
+    function isValidDateValue(value) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        return false;
+      }
+
+      const [year, month, day] = value.split("-").map(Number);
+      const date = new Date(Date.UTC(year, month - 1, day));
+      return (
+        date.getUTCFullYear() === year &&
+        date.getUTCMonth() === month - 1 &&
+        date.getUTCDate() === day
+      );
+    }
+
+    function isValidTimeValue(value) {
+      if (!/^\d{2}:\d{2}(:\d{2})?$/.test(value)) {
+        return false;
+      }
+
+      const [hours, minutes] = value.split(":").map(Number);
+      return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59;
+    }
+
+    function isTripPlanTableMissingError(error) {
+      const content = [
+        error && error.code,
+        error && error.message,
+        error && error.details,
+        error && error.hint,
+        error && error.status
+      ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+      return (
+        content.includes("pgrst205") ||
+        content.includes("404") ||
+        (content.includes("trip_plan_items") && content.includes("does not exist")) ||
+        (content.includes("trip_plan_items") && content.includes("relation"))
+      );
     }
 
     function initializeSupabase() {
@@ -2127,7 +3275,8 @@
           exported_at: new Date().toISOString(),
           trip_id: TRIP_ID,
           local_storage: collectTripLocalStorage(),
-          expenses
+          expenses,
+          trip_plan_items: tripPlanItems
         };
         const blob = new Blob([JSON.stringify(backup, null, 2)], {
           type: "application/json"
@@ -2145,7 +3294,11 @@
       const data = {};
       for (let index = 0; index < localStorage.length; index += 1) {
         const key = localStorage.key(index);
-        if (key && key.startsWith(`${STORAGE_PREFIX}.`)) {
+        if (
+          key &&
+          key.startsWith(`${STORAGE_PREFIX}.`) &&
+          !key.startsWith(`${STORAGE_PREFIX}.footprint.`)
+        ) {
           data[key] = localStorage.getItem(key);
         }
       }
@@ -2207,6 +3360,7 @@
       if (expenseChannel && supabaseClient) {
         supabaseClient.removeChannel(expenseChannel);
       }
+      unsubscribeTripPlanChanges();
     });
   </script>
 </body>
