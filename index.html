@@ -1099,6 +1099,90 @@
       flex-wrap: wrap;
     }
 
+    .expense-title-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      min-width: 0;
+    }
+
+    .exchange-rate-pills {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .exchange-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.68);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.38);
+      box-shadow:
+        0 8px 24px rgba(35, 42, 54, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      backdrop-filter: blur(18px) saturate(150%);
+    }
+
+    .exchange-pill-hkd {
+      color: #b72f31;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(217, 54, 50, 0.14),
+          rgba(255, 255, 255, 0.38)
+        );
+    }
+
+    .exchange-pill-mop {
+      color: #087a63;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(8, 122, 99, 0.14),
+          rgba(255, 255, 255, 0.38)
+        );
+    }
+
+    .exchange-code {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.48);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .exchange-copy {
+      display: grid;
+      gap: 1px;
+      min-width: 0;
+    }
+
+    .exchange-copy strong {
+      color: currentColor;
+      font-size: 13px;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .exchange-copy small {
+      color: rgba(57, 70, 82, 0.62);
+      font-size: 10px;
+      line-height: 1.25;
+      white-space: normal;
+    }
+
     .traveler-columns {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1505,6 +1589,21 @@
         font-size: 29px;
       }
 
+      .expense-title-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .exchange-rate-pills {
+        width: 100%;
+      }
+
+      .exchange-pill {
+        flex: 1 1 150px;
+        justify-content: center;
+      }
+
       .liquid-tab-bar {
         height: 66px;
         gap: 3px;
@@ -1685,6 +1784,7 @@
       .card,
       .traveler-card,
       .liquid-title-pill,
+      .exchange-pill,
       .site-footer p,
       .status-pill,
       .plan-edit-panel {
@@ -2146,8 +2246,25 @@
 
     <section id="expense" class="view">
       <div class="section-header">
-        <div>
+        <div class="expense-title-row">
           <h2>开支记录</h2>
+          <div class="exchange-rate-pills" aria-label="人民币参考汇率">
+            <div class="exchange-pill exchange-pill-hkd" title="参考汇率 · 正在更新">
+              <span class="exchange-code">HK</span>
+              <span class="exchange-copy">
+                <strong id="hkdRate">1 HKD = … CNY</strong>
+                <small id="hkdRateMeta">参考汇率 · 正在更新</small>
+              </span>
+            </div>
+
+            <div class="exchange-pill exchange-pill-mop" title="参考汇率 · 正在更新">
+              <span class="exchange-code">MO</span>
+              <span class="exchange-copy">
+                <strong id="mopRate">1 MOP = … CNY</strong>
+                <small id="mopRateMeta">参考汇率 · 正在更新</small>
+              </span>
+            </div>
+          </div>
         </div>
         <div class="section-actions">
           <span id="databaseStatus" class="status-pill saving" role="status" aria-live="polite">
@@ -2398,6 +2515,10 @@
         <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">
           GitHub Pages
         </a>
+        · Rates by
+        <a href="https://www.exchangerate-api.com/" target="_blank" rel="noopener noreferrer">
+          ExchangeRate-API
+        </a>
       </p>
     </footer>
   </main>
@@ -2427,6 +2548,10 @@
     const CATEGORIES = ["交通", "餐饮", "住宿", "门票", "购物", "日用品", "其他"];
     const PLAN_CITIES = ["深圳", "香港", "澳门", "珠海", "广州", "其他"];
     const PLAN_TRAVEL_DATES = ["2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03"];
+    const EXCHANGE_RATE_API =
+      "https://open.er-api.com/v6/latest/CNY";
+    const EXCHANGE_RATE_CACHE_KEY = "hkmo_exchange_rates_v1";
+    const EXCHANGE_RATE_CACHE_MAX_AGE = 12 * 60 * 60 * 1000;
 
     let supabaseClient = null;
     let expenses = [];
@@ -2448,6 +2573,7 @@
       initializeExpenseForms();
       initializeTripPlanForms();
       initializePlanEdit();
+      initializeExchangeRates();
       initializeSupabase();
       loadExpenses();
       subscribeToExpenseChanges();
@@ -3245,6 +3371,171 @@
         (content.includes("trip_plan_items") && content.includes("does not exist")) ||
         (content.includes("trip_plan_items") && content.includes("relation"))
       );
+    }
+
+    function initializeExchangeRates() {
+      renderExchangeRatesLoading();
+
+      const cachedRates = getCachedExchangeRates();
+      if (cachedRates) {
+        renderExchangeRates(cachedRates);
+      }
+
+      if (!cachedRates || isExchangeRateCacheExpired(cachedRates)) {
+        refreshExchangeRates(cachedRates);
+      }
+    }
+
+    async function refreshExchangeRates(cachedRates) {
+      try {
+        const response = await fetch(EXCHANGE_RATE_API, {
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error(`Exchange rate request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (data && data.result && data.result !== "success") {
+          throw new Error(`Exchange rate API returned ${data.result}`);
+        }
+
+        const hkdRate = Number(data && data.rates && data.rates.HKD);
+        const mopRate = Number(data && data.rates && data.rates.MOP);
+        if (!Number.isFinite(hkdRate) || hkdRate <= 0 || !Number.isFinite(mopRate) || mopRate <= 0) {
+          throw new Error("Exchange rate API returned invalid HKD or MOP rates.");
+        }
+
+        const nextRates = {
+          hkdToCny: 1 / hkdRate,
+          mopToCny: 1 / mopRate,
+          apiUpdatedAt: getExchangeRateApiUpdatedAt(data),
+          fetchedAt: new Date().toISOString()
+        };
+
+        cacheExchangeRates(nextRates);
+        renderExchangeRates(nextRates);
+      } catch (error) {
+        console.error("Failed to load exchange rates:", error);
+
+        if (cachedRates) {
+          renderExchangeRates(cachedRates, { cached: true });
+          return;
+        }
+
+        renderExchangeRatesUnavailable();
+      }
+    }
+
+    function getCachedExchangeRates() {
+      try {
+        const raw = localStorage.getItem(EXCHANGE_RATE_CACHE_KEY);
+        if (!raw) {
+          return null;
+        }
+
+        const parsed = JSON.parse(raw);
+        const hkdToCny = Number(parsed.hkdToCny);
+        const mopToCny = Number(parsed.mopToCny);
+        const fetchedAt = parsed.fetchedAt ? String(parsed.fetchedAt) : "";
+        const fetchedAtTime = Date.parse(fetchedAt);
+        if (
+          !Number.isFinite(hkdToCny) ||
+          hkdToCny <= 0 ||
+          !Number.isFinite(mopToCny) ||
+          mopToCny <= 0 ||
+          !Number.isFinite(fetchedAtTime)
+        ) {
+          return null;
+        }
+
+        return {
+          hkdToCny,
+          mopToCny,
+          apiUpdatedAt: parsed.apiUpdatedAt ? String(parsed.apiUpdatedAt) : "",
+          fetchedAt
+        };
+      } catch (error) {
+        console.error("Failed to read cached exchange rates:", error);
+        return null;
+      }
+    }
+
+    function cacheExchangeRates(rates) {
+      try {
+        localStorage.setItem(EXCHANGE_RATE_CACHE_KEY, JSON.stringify(rates));
+      } catch (error) {
+        console.error("Failed to cache exchange rates:", error);
+      }
+    }
+
+    function isExchangeRateCacheExpired(rates) {
+      const fetchedAtTime = Date.parse(rates.fetchedAt);
+      return !Number.isFinite(fetchedAtTime) || Date.now() - fetchedAtTime > EXCHANGE_RATE_CACHE_MAX_AGE;
+    }
+
+    function getExchangeRateApiUpdatedAt(data) {
+      const updateUnix = Number(data && data.time_last_update_unix);
+      if (Number.isFinite(updateUnix) && updateUnix > 0) {
+        return new Date(updateUnix * 1000).toISOString();
+      }
+
+      const updateText = data && data.time_last_update_utc;
+      const updateTime = Date.parse(updateText);
+      if (Number.isFinite(updateTime)) {
+        return new Date(updateTime).toISOString();
+      }
+
+      return "";
+    }
+
+    function renderExchangeRatesLoading() {
+      updateExchangeRatePill("hkd", "1 HKD = … CNY", "参考汇率 · 正在更新");
+      updateExchangeRatePill("mop", "1 MOP = … CNY", "参考汇率 · 正在更新");
+    }
+
+    function renderExchangeRates(rates, options = {}) {
+      const dateText = formatExchangeRateDate(rates.apiUpdatedAt || rates.fetchedAt);
+      const suffix = options.cached ? " · 缓存" : "";
+      const meta = `参考汇率 · 更新于 ${dateText}${suffix}`;
+
+      updateExchangeRatePill("hkd", `1 HKD = ${rates.hkdToCny.toFixed(4)} CNY`, meta);
+      updateExchangeRatePill("mop", `1 MOP = ${rates.mopToCny.toFixed(4)} CNY`, meta);
+    }
+
+    function renderExchangeRatesUnavailable() {
+      updateExchangeRatePill("hkd", "1 HKD = 暂不可用", "参考汇率 · 暂不可用");
+      updateExchangeRatePill("mop", "1 MOP = 暂不可用", "参考汇率 · 暂不可用");
+    }
+
+    function updateExchangeRatePill(currency, text, meta) {
+      const rate = document.getElementById(`${currency}Rate`);
+      const metaElement = document.getElementById(`${currency}RateMeta`);
+      const pill = document.querySelector(`.exchange-pill-${currency}`);
+
+      if (rate) {
+        rate.textContent = text;
+      }
+      if (metaElement) {
+        metaElement.textContent = meta;
+      }
+      if (pill) {
+        pill.title = meta;
+      }
+    }
+
+    function formatExchangeRateDate(value) {
+      const timestamp = Date.parse(value);
+      if (!Number.isFinite(timestamp)) {
+        return "未知日期";
+      }
+
+      const date = new Date(timestamp);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
     }
 
     function initializeSupabase() {
