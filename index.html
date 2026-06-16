@@ -863,7 +863,7 @@
     }
 
     .plan-list-card {
-      margin-top: 16px;
+      margin-bottom: 16px;
     }
 
     .plan-day {
@@ -1558,7 +1558,6 @@
       <div class="section-header">
         <div>
           <h2>交通</h2>
-          <p>火车、口岸、跨境巴士和城市间移动集中整理。</p>
         </div>
         <span class="badge">深圳 → 香港 → 澳门 → 珠海 → 广州</span>
       </div>
@@ -1653,9 +1652,7 @@
       <div class="section-header">
         <div>
           <h2>准备</h2>
-          <p>清单勾选状态保存在当前浏览器，刷新后仍会保留。</p>
         </div>
-        <span class="badge">证件 · 用品 · 必备 APP</span>
       </div>
 
       <div class="grid">
@@ -1759,7 +1756,7 @@
                 <strong>MTR Mobile</strong>
                 <small>用途：香港港铁线路、车费、车站和到站信息</small>
               </div>
-              <span class="badge">香港</span>
+              <span class="badge">港铁</span>
             </div>
           </div>
         </article>
@@ -1770,18 +1767,17 @@
       <div class="section-header">
         <div>
           <h2>住宿</h2>
-          <p>住宿信息自动保存到当前浏览器。</p>
         </div>
         <span class="badge">香港 · 澳门 · 珠海</span>
       </div>
 
       <div class="grid">
         <article class="card">
-          <h3 class="card-title">香港住宿</h3>
+          <h3 class="card-title">香港</h3>
           <div class="field-grid">
-            <label class="field">酒店名称<input id="hongKongHotelName" type="text" value="香港阿山龙祥旅馆" data-storage-key="stay.hk.name"></label>
+            <label class="field">酒店名称<input id="hongKongHotelName" type="text" value="" data-storage-key="stay.hk.name"></label>
             <label class="field">入住日期<input id="hongKongHotelDate" type="date" value="2026-06-30" data-storage-key="stay.hk.date"></label>
-            <label class="field full">详细地址<input id="hongKongHotelAddress" type="text" placeholder="粘贴完整地址" data-storage-key="stay.hk.address"></label>
+            <label class="field full">详细地址<input id="hongKongHotelAddress" type="text" placeholder="" data-storage-key="stay.hk.address"></label>
             <label class="field">联系电话
               <div class="phone-field">
                 <select id="hongKongHotelPhoneCode" aria-label="香港住宿电话区号" data-storage-key="stay.hk.phoneCode">
@@ -1792,17 +1788,17 @@
                 <input id="hongKongHotelPhoneNumber" type="tel" inputmode="tel" placeholder="" data-storage-key="stay.hk.phoneNumber">
               </div>
             </label>
-            <label class="field">订单号<input id="hongKongHotelOrder" type="text" placeholder="订单号" data-storage-key="stay.hk.order"></label>
-            <label class="field full">入住备注<textarea id="hongKongHotelMemo" placeholder="前台位置、最晚入住时间、押金、行李寄存等" data-storage-key="stay.hk.memo"></textarea></label>
+            <label class="field">订单号<input id="hongKongHotelOrder" type="text" placeholder="" data-storage-key="stay.hk.order"></label>
+            <label class="field full">入住备注<textarea id="hongKongHotelMemo" placeholder="" data-storage-key="stay.hk.memo"></textarea></label>
           </div>
         </article>
 
         <article class="card">
-          <h3 class="card-title">澳门住宿</h3>
+          <h3 class="card-title">澳门</h3>
           <div class="field-grid">
-            <label class="field">酒店名称<input id="macauHotelName" type="text" placeholder="澳门酒店名称" data-storage-key="stay.mo.name"></label>
+            <label class="field">酒店名称<input id="macauHotelName" type="text" placeholder="" data-storage-key="stay.mo.name"></label>
             <label class="field">入住日期<input id="macauHotelDate" type="date" value="2026-07-01" data-storage-key="stay.mo.date"></label>
-            <label class="field full">详细地址<input id="macauHotelAddress" type="text" placeholder="粘贴完整地址" data-storage-key="stay.mo.address"></label>
+            <label class="field full">详细地址<input id="macauHotelAddress" type="text" placeholder="" data-storage-key="stay.mo.address"></label>
             <label class="field">联系电话
               <div class="phone-field">
                 <select id="macauHotelPhoneCode" aria-label="澳门住宿电话区号" data-storage-key="stay.mo.phoneCode">
@@ -1813,17 +1809,17 @@
                 <input id="macauHotelPhoneNumber" type="tel" inputmode="tel" placeholder="" data-storage-key="stay.mo.phoneNumber">
               </div>
             </label>
-            <label class="field">订单号<input id="macauHotelOrder" type="text" placeholder="订单号" data-storage-key="stay.mo.order"></label>
-            <label class="field full">入住备注<textarea id="macauHotelMemo" placeholder="入住时间、交通、行李寄存等" data-storage-key="stay.mo.memo"></textarea></label>
+            <label class="field">订单号<input id="macauHotelOrder" type="text" placeholder="" data-storage-key="stay.mo.order"></label>
+            <label class="field full">入住备注<textarea id="macauHotelMemo" placeholder="" data-storage-key="stay.mo.memo"></textarea></label>
           </div>
         </article>
 
         <article class="card wide">
-          <h3 class="card-title">珠海住宿或休息地点</h3>
+          <h3 class="card-title">珠海</h3>
           <div class="field-grid">
-            <label class="field">住宿或休息地点名称<input id="zhuhaiStayName" type="text" placeholder="酒店、青旅或其他休息地点" data-storage-key="stay.zh.name"></label>
-            <label class="field">日期<input id="zhuhaiStayDate" type="date" value="2026-07-02" data-storage-key="stay.zh.date"></label>
-            <label class="field full">详细地址<input id="zhuhaiStayAddress" type="text" placeholder="填写地址和前往日出地点的交通方式" data-storage-key="stay.zh.address"></label>
+            <label class="field">酒店名称<input id="zhuhaiStayName" type="text" placeholder="" data-storage-key="stay.zh.name"></label>
+            <label class="field">入住日期<input id="zhuhaiStayDate" type="date" value="2026-07-02" data-storage-key="stay.zh.date"></label>
+            <label class="field full">详细地址<input id="zhuhaiStayAddress" type="text" placeholder="" data-storage-key="stay.zh.address"></label>
             <label class="field">联系电话
               <div class="phone-field">
                 <select id="zhuhaiStayPhoneCode" aria-label="珠海住宿电话区号" data-storage-key="stay.zh.phoneCode">
@@ -1834,10 +1830,8 @@
                 <input id="zhuhaiStayPhoneNumber" type="tel" inputmode="tel" placeholder="" data-storage-key="stay.zh.phoneNumber">
               </div>
             </label>
-            <label class="field">订单号<input id="zhuhaiStayOrder" type="text" placeholder="订单号" data-storage-key="stay.zh.order"></label>
-            <label class="field full">日出安排<textarea id="zhuhaiSunrisePlan" placeholder="日出地点、出发时间、交通方式、备用方案" data-storage-key="stay.zh.sunrise"></textarea></label>
-            <label class="field full">行李寄存信息<textarea id="zhuhaiLuggageInfo" placeholder="寄存地点、营业时间、费用、取件提醒" data-storage-key="stay.zh.luggage"></textarea></label>
-            <label class="field full">其他备注<textarea id="zhuhaiStayMemo" placeholder="休息、洗漱、集合、返程前准备等" data-storage-key="stay.zh.memo"></textarea></label>
+            <label class="field">订单号<input id="zhuhaiStayOrder" type="text" placeholder="" data-storage-key="stay.zh.order"></label>
+            <label class="field full">入住备注<textarea id="zhuhaiStayMemo" placeholder="" data-storage-key="stay.zh.memo"></textarea></label>
           </div>
         </article>
       </div>
@@ -1847,7 +1841,6 @@
       <div class="section-header">
         <div>
           <h2>足迹</h2>
-          <p>双方共同维护的行程规划，保存到 Supabase 后两台设备会同步显示。</p>
         </div>
         <span class="badge">共享规划 · Realtime</span>
       </div>
@@ -1863,12 +1856,11 @@
         <article class="traveler-card" data-traveler="traveler_a">
           <div class="traveler-header">
             <div class="avatar-shell">
-              <img class="avatar" data-avatar="traveler_a" src="./assets/avatar-a.jpg" alt="旅行者 A 头像">
+              <img class="avatar" data-avatar="traveler_a" src="./assets/avatar-a.jpg" alt="小满 头像">
               <div class="avatar-fallback" data-avatar-fallback="traveler_a">A</div>
             </div>
             <div class="traveler-name">
-              <h3><span data-traveler-name="traveler_a">旅行者 A</span> 添加计划</h3>
-              <p>固定保存为 traveler_a</p>
+              <h3><span data-traveler-name="traveler_a">小满</span></h3>
             </div>
           </div>
 
@@ -1877,9 +1869,9 @@
               <label class="field">日期<input name="event_date" type="date" list="tripDateOptions" required></label>
               <label class="field">时间<input name="event_time" type="time"></label>
               <label class="field">城市<select name="city" required></select></label>
-              <label class="field">计划标题<input name="title" type="text" maxlength="80" placeholder="例如：尖沙咀拍照" required></label>
-              <label class="field full">地点<input name="location" type="text" maxlength="120" placeholder="例如：星光大道"></label>
-              <label class="field full">详细备注<textarea name="note" maxlength="500" placeholder="天气、排队、备用方案或集合提醒"></textarea></label>
+              <label class="field">计划标题<input name="title" type="text" maxlength="80" placeholder="" required></label>
+              <label class="field full">地点<input name="location" type="text" maxlength="120" placeholder=""></label>
+              <label class="field full">备注<textarea name="note" maxlength="500" placeholder=""></textarea></label>
               <button class="button primary" type="submit">添加计划</button>
             </div>
           </form>
@@ -1889,12 +1881,11 @@
         <article class="traveler-card" data-traveler="traveler_b">
           <div class="traveler-header">
             <div class="avatar-shell">
-              <img class="avatar" data-avatar="traveler_b" src="./assets/avatar-b.jpg" alt="旅行者 B 头像">
+              <img class="avatar" data-avatar="traveler_b" src="./assets/avatar-b.jpg" alt="小鹅蛋 头像">
               <div class="avatar-fallback" data-avatar-fallback="traveler_b">B</div>
             </div>
             <div class="traveler-name">
-              <h3><span data-traveler-name="traveler_b">旅行者 B</span> 添加计划</h3>
-              <p>固定保存为 traveler_b</p>
+              <h3><span data-traveler-name="traveler_b">小鹅蛋</span></h3>
             </div>
           </div>
 
@@ -1903,9 +1894,9 @@
               <label class="field">日期<input name="event_date" type="date" list="tripDateOptions" required></label>
               <label class="field">时间<input name="event_time" type="time"></label>
               <label class="field">城市<select name="city" required></select></label>
-              <label class="field">计划标题<input name="title" type="text" maxlength="80" placeholder="例如：晚餐备选" required></label>
-              <label class="field full">地点<input name="location" type="text" maxlength="120" placeholder="例如：酒店附近"></label>
-              <label class="field full">详细备注<textarea name="note" maxlength="500" placeholder="交通、预算、营业时间或注意事项"></textarea></label>
+              <label class="field">计划标题<input name="title" type="text" maxlength="80" placeholder="" required></label>
+              <label class="field full">地点<input name="location" type="text" maxlength="120" placeholder=""></label>
+              <label class="field full">备注<textarea name="note" maxlength="500" placeholder=""></textarea></label>
               <button class="button primary" type="submit">添加计划</button>
             </div>
           </form>
@@ -1917,9 +1908,8 @@
         <div class="section-header">
           <div>
             <h3 class="card-title">共同足迹</h3>
-            <p>按日期、时间和创建顺序排列；无时间记录排在当天具体时间之后。</p>
           </div>
-          <span id="planStatus" class="badge" aria-live="polite">正在读取共享足迹</span>
+          <span id="planStatus" class="badge" aria-live="polite">正在读取</span>
         </div>
         <div id="planList" class="plan-list"></div>
       </article>
@@ -1954,7 +1944,6 @@
       <div class="section-header">
         <div>
           <h2>开支记录</h2>
-          <p>仅双人开支记录保存到 Supabase，三种币种分别统计，不做汇率换算。</p>
         </div>
         <div class="section-actions">
           <span id="databaseStatus" class="status-pill saving" role="status" aria-live="polite">
@@ -1966,21 +1955,20 @@
       </div>
 
       <div class="combined-summary" aria-label="双人合计">
-        <div class="summary-box"><span>两人人民币总计</span><strong data-total-sum="CNY">CNY 0</strong></div>
-        <div class="summary-box"><span>两人港币总计</span><strong data-total-sum="HKD">HKD 0</strong></div>
-        <div class="summary-box"><span>两人澳门币总计</span><strong data-total-sum="MOP">MOP 0</strong></div>
+        <div class="summary-box"><span>人民币总计</span><strong data-total-sum="CNY">CNY 0</strong></div>
+        <div class="summary-box"><span>港币总计</span><strong data-total-sum="HKD">HKD 0</strong></div>
+        <div class="summary-box"><span>澳门币总计</span><strong data-total-sum="MOP">MOP 0</strong></div>
       </div>
 
       <div class="traveler-columns">
         <article class="traveler-card" data-traveler="traveler_a">
           <div class="traveler-header">
             <div class="avatar-shell">
-              <img class="avatar" data-avatar="traveler_a" src="./assets/avatar-a.jpg" alt="旅行者 A 头像">
+              <img class="avatar" data-avatar="traveler_a" src="./assets/avatar-a.jpg" alt="小满 头像">
               <div class="avatar-fallback" data-avatar-fallback="traveler_a">A</div>
             </div>
             <div class="traveler-name">
-              <h3 data-traveler-name="traveler_a">旅行者 A</h3>
-              <p>左栏仅显示 traveler_a 的记录</p>
+              <h3 data-traveler-name="traveler_a">小满</h3>
             </div>
           </div>
 
@@ -1996,7 +1984,7 @@
               <label class="field">分类<select name="category" required></select></label>
               <label class="field">币种<select name="currency" required></select></label>
               <label class="field">金额<input name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00" required></label>
-              <label class="field full">备注<input name="note" type="text" maxlength="120" placeholder="例如：东铁线、午餐、门票"></label>
+              <label class="field full">备注<input name="note" type="text" maxlength="120" placeholder=""></label>
               <button class="button primary" type="submit">添加记录</button>
             </div>
           </form>
@@ -2007,12 +1995,11 @@
         <article class="traveler-card" data-traveler="traveler_b">
           <div class="traveler-header">
             <div class="avatar-shell">
-              <img class="avatar" data-avatar="traveler_b" src="./assets/avatar-b.jpg" alt="旅行者 B 头像">
+              <img class="avatar" data-avatar="traveler_b" src="./assets/avatar-b.jpg" alt="小鹅蛋 头像">
               <div class="avatar-fallback" data-avatar-fallback="traveler_b">B</div>
             </div>
             <div class="traveler-name">
-              <h3 data-traveler-name="traveler_b">旅行者 B</h3>
-              <p>右栏仅显示 traveler_b 的记录</p>
+              <h3 data-traveler-name="traveler_b">小鹅蛋</h3>
             </div>
           </div>
 
@@ -2028,7 +2015,7 @@
               <label class="field">分类<select name="category" required></select></label>
               <label class="field">币种<select name="currency" required></select></label>
               <label class="field">金额<input name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00" required></label>
-              <label class="field full">备注<input name="note" type="text" maxlength="120" placeholder="例如：港珠澳巴士、晚餐、购物"></label>
+              <label class="field full">备注<input name="note" type="text" maxlength="120" placeholder=""></label>
               <button class="button primary" type="submit">添加记录</button>
             </div>
           </form>
@@ -2042,7 +2029,6 @@
       <div class="section-header">
         <div>
           <h2>注意事项</h2>
-          <p>只保留当地规则、公共交通、通关和容易踩坑的文明提醒。</p>
         </div>
         <span class="badge">法律法规 · 公共秩序 · 通关</span>
       </div>
@@ -2182,36 +2168,10 @@
             </div>
           </div>
         </article>
-
-        <article class="card">
-          <h3 class="card-title">📝 双方补充提醒</h3>
-          <p class="muted">仅保存在当前设备，不会通过 Supabase 同步。</p>
-          <div class="field-grid">
-            <label class="field">提醒标题<input type="text" data-storage-key="notice.shared.title" placeholder="例如：过关前集合"></label>
-            <label class="field">紧急程度
-              <select data-storage-key="notice.shared.urgency">
-                <option value="普通">普通</option>
-                <option value="重要">重要</option>
-                <option value="紧急">紧急</option>
-              </select>
-            </label>
-            <label class="field full">提醒内容<textarea data-storage-key="notice.shared.content" placeholder="写下双方临时约定、备用电话、集合点或当天需要确认的事项"></textarea></label>
-          </div>
-        </article>
-
-        <article class="card">
-          <h3 class="card-title">💾 数据与备份</h3>
-          <p class="muted">
-            导出当前浏览器 localStorage 中的准备清单、住宿和双方补充提醒；已加载的开支与足迹只作为当前页面快照，不替代 Supabase 数据备份。
-          </p>
-          <button id="exportButton" class="button" type="button">
-            导出本地备份
-          </button>
-        </article>
       </div>
 
       <p class="notice-source">
-        最后整理：2026 年 6 月。规则和罚款可能调整，请以香港、澳门政府最新公告、口岸规定及现场标识为准。
+        注：规则和罚款可能调整，请以香港、澳门政府最新公告、口岸规定及现场标识为准。
         官方入口：
         <a href="https://www.mtr.com.hk/" target="_blank" rel="noreferrer">港铁</a>、
         <a href="https://www.customs.gov.hk/" target="_blank" rel="noreferrer">香港海关</a>、
@@ -2222,7 +2182,7 @@
     </section>
 
     <p class="footer">
-      静态网页可直接部署到 GitHub Pages；本地内容使用 localStorage，双人开支使用 Supabase。
+      Powered by Supabase<br>
     </p>
   </main>
 
@@ -2230,11 +2190,11 @@
   <script>
     const TRAVELERS = {
       traveler_a: {
-        name: "旅行者 A",
+        name: "小满",
         avatar: "./assets/avatar-a.jpg"
       },
       traveler_b: {
-        name: "旅行者 B",
+        name: "小鹅蛋",
         avatar: "./assets/avatar-b.jpg"
       }
     };
@@ -2273,7 +2233,6 @@
       initializeTripPlanForms();
       initializePlanEdit();
       initializeSupabase();
-      initializeExport();
       loadExpenses();
       subscribeToExpenseChanges();
       loadTripPlanItems();
@@ -2649,7 +2608,7 @@
       }
     }
 
-    function renderTripPlanItems(emptyMessage = "还没有共同规划的足迹，双方可以从下面开始添加。") {
+    function renderTripPlanItems(emptyMessage = "暂无足迹") {
       const list = document.getElementById("planList");
       if (!list) {
         return;
@@ -3375,47 +3334,6 @@
           button.textContent = "删除";
         }
       }, 5000);
-    }
-
-    function initializeExport() {
-      const exportButton = document.getElementById("exportButton");
-      if (!exportButton) {
-        return;
-      }
-
-      exportButton.addEventListener("click", () => {
-        const backup = {
-          exported_at: new Date().toISOString(),
-          trip_id: TRIP_ID,
-          local_storage: collectTripLocalStorage(),
-          expenses,
-          trip_plan_items: tripPlanItems
-        };
-        const blob = new Blob([JSON.stringify(backup, null, 2)], {
-          type: "application/json"
-        });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "hkmo-trip-2026-backup.json";
-        link.click();
-        URL.revokeObjectURL(url);
-      });
-    }
-
-    function collectTripLocalStorage() {
-      const data = {};
-      for (let index = 0; index < localStorage.length; index += 1) {
-        const key = localStorage.key(index);
-        if (
-          key &&
-          key.startsWith(`${STORAGE_PREFIX}.`) &&
-          !key.startsWith(`${STORAGE_PREFIX}.footprint.`)
-        ) {
-          data[key] = localStorage.getItem(key);
-        }
-      }
-      return data;
     }
 
     function setDatabaseStatus(message, state) {
