@@ -216,6 +216,68 @@
       z-index: 1;
     }
 
+    .title-flags {
+      color: inherit;
+    }
+
+    .title-hkmo {
+      color: #a84d50;
+      background:
+        radial-gradient(
+          circle at 22% 42%,
+          rgba(255, 255, 255, 0.32) 0%,
+          rgba(255, 255, 255, 0.08) 18%,
+          transparent 38%
+        ),
+        radial-gradient(
+          circle at 76% 60%,
+          rgba(155, 220, 205, 0.24) 0%,
+          transparent 36%
+        ),
+        linear-gradient(
+          100deg,
+          #d93632 0%,
+          #bd4548 22%,
+          #92575f 42%,
+          #65706d 58%,
+          #39776b 78%,
+          #087a63 100%
+        );
+      background-size:
+        210% 180%,
+        190% 170%,
+        165% 100%;
+      background-position:
+        0% 45%,
+        100% 55%,
+        0% 50%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: hkmo-palette-ripple 7.5s ease-in-out infinite;
+    }
+
+    .title-journey {
+      color: #40566b;
+    }
+
+    @keyframes hkmo-palette-ripple {
+      0%,
+      100% {
+        background-position:
+          0% 42%,
+          100% 58%,
+          0% 50%;
+      }
+
+      50% {
+        background-position:
+          100% 58%,
+          0% 42%,
+          100% 50%;
+      }
+    }
+
     .title-pill-spacer {
       height: 92px;
     }
@@ -1573,6 +1635,14 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
+
+      .title-hkmo {
+        animation: none !important;
+        background-position:
+          50% 50%,
+          50% 50%,
+          50% 50%;
+      }
     }
   </style>
 </head>
@@ -1580,7 +1650,10 @@
 <body>
   <div class="liquid-title-shell">
     <header class="liquid-title-pill">
-      <h1>🇭🇰🇲🇴 港澳之旅</h1>
+      <h1>
+        <span class="title-flags">🇭🇰🇲🇴</span>
+        <span class="title-hkmo">港澳</span><span class="title-journey">之旅</span>
+      </h1>
     </header>
   </div>
 
