@@ -138,6 +138,15 @@
     }
 
     .liquid-title-pill {
+      --drag-x: 0px;
+      --drag-y: 0px;
+      --drag-rotate: 0deg;
+      --drag-scale-x: 1;
+      --drag-scale-y: 1;
+      --drag-skew-x: 0deg;
+      --highlight-x: 24%;
+      --highlight-y: 0%;
+
       position: relative;
       display: inline-flex;
       width: fit-content;
@@ -149,6 +158,7 @@
       border: 1px solid rgba(255, 255, 255, 0.62);
       border-radius: 999px;
       pointer-events: auto;
+      cursor: grab;
       background:
         linear-gradient(
           135deg,
@@ -161,6 +171,20 @@
         inset 0 -1px 0 rgba(255, 255, 255, 0.16);
       -webkit-backdrop-filter: blur(20px) saturate(155%);
       backdrop-filter: blur(20px) saturate(155%);
+      transform:
+        translate3d(var(--drag-x), var(--drag-y), 0)
+        rotate(var(--drag-rotate))
+        skewX(var(--drag-skew-x))
+        scale(var(--drag-scale-x), var(--drag-scale-y));
+      transform-origin: center;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+      will-change: transform, border-radius;
+    }
+
+    .liquid-title-pill.is-dragging {
+      cursor: grabbing;
     }
 
     .liquid-title-pill::before,
@@ -175,7 +199,7 @@
     .liquid-title-pill::before {
       background:
         radial-gradient(
-          circle at 24% 0%,
+          circle at var(--highlight-x) var(--highlight-y),
           rgba(255, 255, 255, 0.68),
           transparent 44%
         ),
@@ -1871,6 +1895,13 @@
           50% 50%,
           50% 50%;
       }
+
+      .liquid-title-pill {
+        cursor: default;
+        touch-action: auto;
+        transform: none !important;
+        will-change: auto;
+      }
     }
   </style>
 </head>
@@ -2640,6 +2671,7 @@
       initializeExpenseForms();
       initializeTripPlanForms();
       initializePlanEdit();
+      initializeElasticTitlePill();
       initializeExchangeRates();
       initializeSupabase();
       loadExpenses();
@@ -2666,6 +2698,149 @@
           });
         });
       });
+    }
+
+    function initializeElasticTitlePill() {
+      const pill = document.querySelector(".liquid-title-pill");
+      if (!pill || pill.dataset.elasticTitleInitialized === "true") {
+        return;
+      }
+
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduceMotion) {
+        return;
+      }
+
+      pill.dataset.elasticTitleInitialized = "true";
+
+      const MAX_OFFSET = 14;
+      const DRAG_RESISTANCE = 0.25;
+      const DEFAULT_HIGHLIGHT_X = "24%";
+      const DEFAULT_HIGHLIGHT_Y = "0%";
+      let startX = 0;
+      let startY = 0;
+      let pointerId = null;
+      let startRect = null;
+
+      const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+      const resetTitleDrag = () => {
+        pill.style.setProperty("--drag-x", "0px");
+        pill.style.setProperty("--drag-y", "0px");
+        pill.style.setProperty("--drag-rotate", "0deg");
+        pill.style.setProperty("--drag-skew-x", "0deg");
+        pill.style.setProperty("--drag-scale-x", "1");
+        pill.style.setProperty("--drag-scale-y", "1");
+        pill.style.setProperty("--highlight-x", DEFAULT_HIGHLIGHT_X);
+        pill.style.setProperty("--highlight-y", DEFAULT_HIGHLIGHT_Y);
+      };
+
+      pill.addEventListener("pointerdown", (event) => {
+        if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) {
+          return;
+        }
+
+        pointerId = event.pointerId;
+        startX = event.clientX;
+        startY = event.clientY;
+        startRect = pill.getBoundingClientRect();
+
+        if (typeof pill.setPointerCapture === "function") {
+          try {
+            pill.setPointerCapture(pointerId);
+          } catch {
+            // Some synthetic or interrupted pointer streams cannot be captured.
+          }
+        }
+
+        pill.classList.add("is-dragging");
+        if (typeof pill.getAnimations === "function") {
+          pill.getAnimations().forEach((animation) => animation.cancel());
+        }
+        resetTitleDrag();
+        event.preventDefault();
+      });
+
+      pill.addEventListener("pointermove", (event) => {
+        if (event.pointerId !== pointerId || !startRect) {
+          return;
+        }
+
+        const minX = Math.max(-MAX_OFFSET, -startRect.left + 2);
+        const maxX = Math.min(MAX_OFFSET, window.innerWidth - startRect.right - 2);
+        const minY = Math.max(-MAX_OFFSET, -startRect.top + 2);
+        const maxY = Math.min(MAX_OFFSET, window.innerHeight - startRect.bottom - 2);
+        const rawX = (event.clientX - startX) * DRAG_RESISTANCE;
+        const rawY = (event.clientY - startY) * DRAG_RESISTANCE;
+        const x = clamp(rawX, Math.min(minX, maxX), Math.max(minX, maxX));
+        const y = clamp(rawY, Math.min(minY, maxY), Math.max(minY, maxY));
+        const strength = Math.min(Math.hypot(x, y) / MAX_OFFSET, 1);
+
+        pill.style.setProperty("--drag-x", `${x}px`);
+        pill.style.setProperty("--drag-y", `${y}px`);
+        pill.style.setProperty("--drag-rotate", `${clamp(x * 0.12, -2, 2)}deg`);
+        pill.style.setProperty("--drag-skew-x", `${clamp(x * 0.08, -1.4, 1.4)}deg`);
+        pill.style.setProperty("--drag-scale-x", String(1 + strength * 0.06));
+        pill.style.setProperty("--drag-scale-y", String(1 - strength * 0.05));
+        pill.style.setProperty("--highlight-x", `${clamp(24 + x * 2.2, 18, 82)}%`);
+        pill.style.setProperty("--highlight-y", `${clamp(y * 2.2, 0, 82)}%`);
+        event.preventDefault();
+      });
+
+      const releaseTitleDrag = (event) => {
+        if (event.pointerId !== pointerId) {
+          return;
+        }
+
+        const currentTransform = getComputedStyle(pill).transform;
+        pill.classList.remove("is-dragging");
+
+        if (typeof pill.releasePointerCapture === "function" && typeof pill.hasPointerCapture === "function") {
+          try {
+            if (pill.hasPointerCapture(pointerId)) {
+              pill.releasePointerCapture(pointerId);
+            }
+          } catch {
+            // Capture may already be released by the browser.
+          }
+        }
+
+        pointerId = null;
+        startRect = null;
+
+        if (typeof pill.animate === "function") {
+          const rebound = pill.animate(
+            [
+              { transform: currentTransform },
+              { transform: "translate3d(0,0,0) rotate(0deg) skewX(0deg) scale(1.015,.99)" },
+              { transform: "translate3d(0,0,0) rotate(0deg) skewX(0deg) scale(.995,1.005)" },
+              { transform: "translate3d(0,0,0) rotate(0deg) skewX(0deg) scale(1,1)" }
+            ],
+            {
+              duration: 520,
+              easing: "cubic-bezier(.22,.85,.32,1)",
+              fill: "forwards"
+            }
+          );
+          let didResetAfterRebound = false;
+          const finishRebound = () => {
+            if (!didResetAfterRebound) {
+              didResetAfterRebound = true;
+              resetTitleDrag();
+              rebound.cancel();
+            }
+          };
+          rebound.finished.then(finishRebound).catch(finishRebound);
+          window.setTimeout(finishRebound, 560);
+        } else {
+          resetTitleDrag();
+        }
+        event.preventDefault();
+      };
+
+      pill.addEventListener("lostpointercapture", releaseTitleDrag);
+      window.addEventListener("pointerup", releaseTitleDrag);
+      window.addEventListener("pointercancel", releaseTitleDrag);
     }
 
     function initializeNavigation() {
