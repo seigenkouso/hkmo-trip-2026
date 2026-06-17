@@ -8,6 +8,11 @@
   >
   <meta name="theme-color" content="#f5ebcc">
   <title>🇭🇰🇲🇴 港澳之旅</title>
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='86'%3E%E2%9B%85%3C/text%3E%3C/svg%3E"
+  >
 
   <style>
     :root {
@@ -844,13 +849,24 @@
         transform 0.18s ease;
     }
 
-    .check-tag::after {
-      content: "";
+    .toggle-chevron {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       width: 10px;
       height: 10px;
       flex: 0 0 10px;
-      border-right: 1.8px solid currentColor;
-      border-bottom: 1.8px solid currentColor;
+      line-height: 0;
+    }
+
+    .toggle-chevron::before {
+      content: "";
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
       transform: rotate(45deg);
       transform-origin: 50% 50%;
       transition: transform 0.18s ease;
@@ -871,7 +887,7 @@
       transform: scale(0.98);
     }
 
-    .check-group[open] .check-tag::after {
+    .check-group[open] .toggle-chevron::before {
       transform: rotate(225deg);
     }
 
@@ -2010,7 +2026,7 @@
           <h3 class="card-title">出行准备清单</h3>
           <div id="checkList" class="check-list">
             <details class="check-group" open>
-              <summary>证件与支付 <span class="check-tag">必备</span></summary>
+              <summary>证件与支付 <span class="check-tag">必备<span class="toggle-chevron" aria-hidden="true"></span></span></summary>
               <div class="check-items">
                 <label class="check-item"><input type="checkbox" data-check-key="permit"><span>港澳通行证</span></label>
                 <label class="check-item"><input type="checkbox" data-check-key="endorsement"><span>确认有效签注</span></label>
@@ -2024,7 +2040,7 @@
             </details>
 
             <details class="check-group" open>
-              <summary>洗护与住宿用品 <span class="check-tag">建议携带</span></summary>
+              <summary>洗护与住宿用品 <span class="check-tag">建议携带<span class="toggle-chevron" aria-hidden="true"></span></span></summary>
               <div class="check-items">
                 <label class="check-item"><input type="checkbox" data-check-key="disposable-towel"><span>一次性浴巾或毛巾</span></label>
                 <label class="check-item"><input type="checkbox" data-check-key="disposable-toilet-seat"><span>一次性马桶垫</span></label>
@@ -2042,7 +2058,7 @@
             </details>
 
             <details class="check-group">
-              <summary>电子设备 <span class="check-tag">必备 / 建议</span></summary>
+              <summary>电子设备 <span class="check-tag">必备 / 建议<span class="toggle-chevron" aria-hidden="true"></span></span></summary>
               <div class="check-items">
                 <label class="check-item"><input type="checkbox" data-check-key="adapter"><span>英标转换插头</span></label>
                 <label class="check-item"><input type="checkbox" data-check-key="charger"><span>手机充电器</span></label>
@@ -2055,7 +2071,7 @@
             </details>
 
             <details class="check-group">
-              <summary>按个人需要 <span class="check-tag">可选</span></summary>
+              <summary>按个人需要 <span class="check-tag">可选<span class="toggle-chevron" aria-hidden="true"></span></span></summary>
               <div class="check-items">
                 <label class="check-item"><input type="checkbox" data-check-key="disposable-bedding"><span>一次性床上四件套（可选）</span></label>
                 <label class="check-item"><input type="checkbox" data-check-key="filtered-shower-head"><span>便携过滤花洒（可选）</span></label>
@@ -2067,7 +2083,7 @@
             </details>
 
             <details class="check-group">
-              <summary>摄影设备 <span class="check-tag">摄影可选</span></summary>
+              <summary>摄影设备 <span class="check-tag">摄影可选<span class="toggle-chevron" aria-hidden="true"></span></span></summary>
               <div class="check-items">
                 <label class="check-item"><input type="checkbox" data-check-key="backup-phone"><span>备用手机或旧手机（可选）</span></label>
                 <label class="check-item"><input type="checkbox" data-check-key="film-camera"><span>一次性胶片相机（可选）</span></label>
