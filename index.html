@@ -727,18 +727,6 @@
       box-shadow: 0 0 0 4px var(--focus);
     }
 
-    .phone-field {
-      display: grid;
-      grid-template-columns: minmax(100px, 116px) minmax(0, 1fr);
-      gap: 8px;
-      width: 100%;
-    }
-
-    .phone-field select,
-    .phone-field input {
-      min-width: 0;
-    }
-
     .stay-card {
       display: grid;
       gap: 16px;
@@ -762,16 +750,17 @@
       letter-spacing: 0;
     }
 
-    .field textarea.stay-address {
-      min-height: 78px;
+    .stay-info-grid .stay-wide {
+      grid-column: 1 / -1;
     }
 
-    .local-only-note {
-      grid-column: 1 / -1;
-      margin: -2px 0 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.6;
+    .stay-info-grid a {
+      color: #476d86;
+      text-decoration: none;
+    }
+
+    .stay-info-grid a:hover {
+      text-decoration: underline;
     }
 
     .stay-quick-actions {
@@ -2090,11 +2079,24 @@
         </article>
 
         <article class="card">
-          <h3 class="card-title">珠海 → 广州</h3>
+          <h3 class="card-title">珠海 → 广州 <span class="badge">C7626</span></h3>
+          <div class="route">
+            <div class="route-place">
+              <strong>明珠站</strong>
+              <span>2026-07-03 10:12</span>
+            </div>
+            <div class="route-arrow"></div>
+            <div class="route-place">
+              <strong>广州南站</strong>
+              <span>2026-07-03 11:02</span>
+            </div>
+          </div>
           <dl class="key-values">
-            <div><dt>时间</dt><dd>2026-07-03 中午</dd></div>
-            <div><dt>交通方式</dt><dd>城际铁路或动车</dd></div>
-            <div><dt>提醒</dt><dd>提前通过铁路 12306 购票</dd></div>
+            <div><dt>车次</dt><dd>C7626</dd></div>
+            <div><dt>日期</dt><dd>2026-07-03</dd></div>
+            <div><dt>出发时间</dt><dd>10:12</dd></div>
+            <div><dt>到达时间</dt><dd>11:02</dd></div>
+            <div><dt>历时</dt><dd>50 分</dd></div>
           </dl>
         </article>
       </div>
@@ -2248,27 +2250,19 @@
             <h3 class="card-title">香港阿山龙祥旅馆</h3>
             <span class="hotel-english">Ah Shan Hostel</span>
           </div>
-          <div class="field-grid">
-            <label class="field">酒店名称<input id="hongKongHotelName" type="text" value="香港阿山龙祥旅馆" data-storage-key="bookedStay.hk.name"></label>
-            <label class="field">英文名（如有）<input id="hongKongHotelEnglishName" type="text" value="Ah Shan Hostel" data-storage-key="bookedStay.hk.englishName"></label>
-            <label class="field">入住日期<input id="hongKongHotelCheckIn" type="date" value="2026-06-30" data-storage-key="bookedStay.hk.checkIn"></label>
-            <label class="field">退房日期<input id="hongKongHotelCheckOut" type="date" value="2026-07-01" data-storage-key="bookedStay.hk.checkOut"></label>
-            <label class="field full">地址<textarea id="hongKongHotelAddress" class="stay-address" data-stay-address data-storage-key="bookedStay.hk.address">香港九龙旺角亚皆老街83号先施大厦14楼1406室（与花园街交叉口）</textarea></label>
-            <label class="field">联系电话
-              <div class="phone-field">
-                <select id="hongKongHotelPhoneCode" aria-label="香港住宿电话区号" data-stay-phone-code data-storage-key="bookedStay.hk.phoneCode">
-                  <option value="+86">🇨🇳 +86 中国内地</option>
-                  <option value="+852" selected>🇭🇰 +852 香港</option>
-                  <option value="+853">🇲🇴 +853 澳门</option>
-                </select>
-                <input id="hongKongHotelPhoneNumber" type="tel" inputmode="tel" value="27875934" data-stay-phone-number data-storage-key="bookedStay.hk.phoneNumber">
-              </div>
-            </label>
-            <label class="field">邮箱（如有）<input id="hongKongHotelEmail" type="email" value="ahshanhostelhk@gmail.com" data-storage-key="bookedStay.hk.email"></label>
-            <label class="field">订单号<input id="hongKongHotelOrder" type="text" placeholder="" autocomplete="off" data-storage-key="bookedStay.hk.order"></label>
-            <label class="field">确认号<input id="hongKongHotelConfirm" type="text" placeholder="" autocomplete="off" data-storage-key="bookedStay.hk.confirm"></label>
-            <label class="field full">备注<textarea id="hongKongHotelMemo" placeholder="" data-storage-key="bookedStay.hk.memo"></textarea></label>
-          </div>
+          <dl class="key-values stay-info-grid">
+            <div><dt>入住</dt><dd>2026-06-30</dd></div>
+            <div><dt>退房</dt><dd>2026-07-01</dd></div>
+            <div class="stay-wide">
+              <dt>地址</dt>
+              <dd data-stay-address>香港九龙旺角亚皆老街83号先施大厦14楼1406室（与花园街交叉口）</dd>
+            </div>
+            <div><dt>电话</dt><dd data-stay-phone>+852 27875934</dd></div>
+            <div>
+              <dt>邮箱</dt>
+              <dd><a href="mailto:ahshanhostelhk@gmail.com">ahshanhostelhk@gmail.com</a></dd>
+            </div>
+          </dl>
           <div class="stay-quick-actions">
             <button class="button" type="button" data-stay-action="copy-address">复制地址</button>
             <button class="button" type="button" data-stay-action="copy-phone">复制电话</button>
@@ -2287,27 +2281,19 @@
             <h3 class="card-title">澳门万事发酒店</h3>
             <span class="hotel-english">Macau Masters Hotel</span>
           </div>
-          <div class="field-grid">
-            <label class="field">酒店名称<input id="macauHotelName" type="text" value="澳门万事发酒店" data-storage-key="bookedStay.mo.name"></label>
-            <label class="field">英文名（如有）<input id="macauHotelEnglishName" type="text" value="Macau Masters Hotel" data-storage-key="bookedStay.mo.englishName"></label>
-            <label class="field">入住日期<input id="macauHotelCheckIn" type="date" value="2026-07-01" data-storage-key="bookedStay.mo.checkIn"></label>
-            <label class="field">退房日期<input id="macauHotelCheckOut" type="date" value="2026-07-02" data-storage-key="bookedStay.mo.checkOut"></label>
-            <label class="field full">地址<textarea id="macauHotelAddress" class="stay-address" data-stay-address data-storage-key="bookedStay.mo.address">澳门半岛火船头街162号</textarea></label>
-            <label class="field">联系电话
-              <div class="phone-field">
-                <select id="macauHotelPhoneCode" aria-label="澳门住宿电话区号" data-stay-phone-code data-storage-key="bookedStay.mo.phoneCode">
-                  <option value="+86">🇨🇳 +86</option>
-                  <option value="+852">🇭🇰 +852</option>
-                  <option value="+853" selected>🇲🇴 +853</option>
-                </select>
-                <input id="macauHotelPhoneNumber" type="tel" inputmode="tel" value="28937572" data-stay-phone-number data-storage-key="bookedStay.mo.phoneNumber">
-              </div>
-            </label>
-            <label class="field">邮箱（如有）<input id="macauHotelEmail" type="email" value="frontdesk@mastershotel-macau.com" data-storage-key="bookedStay.mo.email"></label>
-            <label class="field">订单号<input id="macauHotelOrder" type="text" placeholder="" autocomplete="off" data-storage-key="bookedStay.mo.order"></label>
-            <label class="field">确认号<input id="macauHotelConfirm" type="text" placeholder="" autocomplete="off" data-storage-key="bookedStay.mo.confirm"></label>
-            <label class="field full">备注<textarea id="macauHotelMemo" placeholder="" data-storage-key="bookedStay.mo.memo"></textarea></label>
-          </div>
+          <dl class="key-values stay-info-grid">
+            <div><dt>入住</dt><dd>2026-07-01</dd></div>
+            <div><dt>退房</dt><dd>2026-07-02</dd></div>
+            <div class="stay-wide">
+              <dt>地址</dt>
+              <dd data-stay-address>澳门半岛火船头街162号</dd>
+            </div>
+            <div><dt>电话</dt><dd data-stay-phone>+853 28937572</dd></div>
+            <div>
+              <dt>邮箱</dt>
+              <dd><a href="mailto:frontdesk@mastershotel-macau.com">frontdesk@mastershotel-macau.com</a></dd>
+            </div>
+          </dl>
           <div class="stay-quick-actions">
             <button class="button" type="button" data-stay-action="copy-address">复制地址</button>
             <button class="button" type="button" data-stay-action="copy-phone">复制电话</button>
@@ -2319,37 +2305,23 @@
         <article
           class="card stay-card"
           data-stay-card
-          data-map-query="JZ简致酒店 珠海情侣路海滨泳场店 吉大景园路15号"
         >
           <div class="stay-card-header">
             <span class="badge">珠海住宿</span>
             <h3 class="card-title">JZ·简致酒店（珠海情侣路海滨泳场店）</h3>
           </div>
-          <div class="field-grid">
-            <label class="field">酒店名称<input id="zhuhaiStayName" type="text" value="JZ·简致酒店（珠海情侣路海滨泳场店）" data-storage-key="bookedStay.zh.name"></label>
-            <label class="field">英文名（如有）<input id="zhuhaiStayEnglishName" type="text" placeholder="" data-storage-key="bookedStay.zh.englishName"></label>
-            <label class="field">入住日期<input id="zhuhaiStayCheckIn" type="date" value="2026-07-02" data-storage-key="bookedStay.zh.checkIn"></label>
-            <label class="field">退房日期<input id="zhuhaiStayCheckOut" type="date" value="2026-07-03" data-storage-key="bookedStay.zh.checkOut"></label>
-            <label class="field full">地址<textarea id="zhuhaiStayAddress" class="stay-address" data-stay-address data-storage-key="bookedStay.zh.address">珠海香洲区吉大景园路15号第10层</textarea></label>
-            <label class="field">联系电话
-              <div class="phone-field">
-                <select id="zhuhaiStayPhoneCode" aria-label="珠海住宿电话区号" data-stay-phone-code data-storage-key="bookedStay.zh.phoneCode">
-                  <option value="+86" selected>🇨🇳 +86 中国内地</option>
-                  <option value="+852">🇭🇰 +852 香港</option>
-                  <option value="+853">🇲🇴 +853 澳门</option>
-                </select>
-                <input id="zhuhaiStayPhoneNumber" type="tel" inputmode="tel" value="13138100099" data-stay-phone-number data-storage-key="bookedStay.zh.phoneNumber">
-              </div>
-            </label>
-            <label class="field">邮箱（如有）<input id="zhuhaiStayEmail" type="email" placeholder="" data-storage-key="bookedStay.zh.email"></label>
-            <label class="field">订单号<input id="zhuhaiStayOrder" type="text" placeholder="" autocomplete="off" data-storage-key="bookedStay.zh.order"></label>
-            <label class="field">确认号<input id="zhuhaiStayConfirm" type="text" placeholder="" autocomplete="off" data-storage-key="bookedStay.zh.confirm"></label>
-            <label class="field full">备注<textarea id="zhuhaiStayMemo" placeholder="" data-storage-key="bookedStay.zh.memo"></textarea></label>
-          </div>
+          <dl class="key-values stay-info-grid">
+            <div><dt>入住</dt><dd>2026-07-02</dd></div>
+            <div><dt>退房</dt><dd>2026-07-03</dd></div>
+            <div class="stay-wide">
+              <dt>地址</dt>
+              <dd data-stay-address>珠海香洲区吉大景园路15号第10层</dd>
+            </div>
+            <div><dt>电话</dt><dd data-stay-phone>+86 13138100099</dd></div>
+          </dl>
           <div class="stay-quick-actions">
             <button class="button" type="button" data-stay-action="copy-address">复制地址</button>
             <button class="button" type="button" data-stay-action="copy-phone">复制电话</button>
-            <button class="button" type="button" data-stay-action="open-map">打开地图</button>
             <span class="stay-message" data-stay-message role="status" aria-live="polite"></span>
           </div>
         </article>
@@ -2775,7 +2747,6 @@
       initializeTravelers();
       initializeNavigation();
       initializeChecklist();
-      initializeLocalStorageForms();
       initializeStayActions();
       initializeExpenseForms();
       initializeTripPlanForms();
@@ -3028,23 +2999,6 @@
       });
     }
 
-    function initializeLocalStorageForms() {
-      document.querySelectorAll("[data-storage-key]").forEach((element) => {
-        const key = storageKey(element.dataset.storageKey);
-        const savedValue = localStorage.getItem(key);
-        if (savedValue !== null) {
-          element.value = savedValue;
-        }
-
-        const saveValue = () => {
-          localStorage.setItem(key, element.value);
-        };
-
-        element.addEventListener("input", saveValue);
-        element.addEventListener("change", saveValue);
-      });
-    }
-
     function initializeStayActions() {
       document.querySelectorAll("[data-stay-card]").forEach((card) => {
         if (card.dataset.stayActionsInitialized === "true") {
@@ -3058,17 +3012,13 @@
             const action = button.dataset.stayAction;
             if (action === "copy-address") {
               const address = card.querySelector("[data-stay-address]");
-              copyStayText(card, address ? address.value.trim() : "", "已复制地址");
+              copyStayText(card, address ? address.textContent.trim() : "", "已复制地址");
               return;
             }
 
             if (action === "copy-phone") {
-              const phoneCode = card.querySelector("[data-stay-phone-code]");
-              const phoneNumber = card.querySelector("[data-stay-phone-number]");
-              const fullPhone = [phoneCode && phoneCode.value, phoneNumber && phoneNumber.value.trim()]
-                .filter(Boolean)
-                .join(" ");
-              copyStayText(card, fullPhone, "已复制电话");
+              const phone = card.querySelector("[data-stay-phone]");
+              copyStayText(card, phone ? phone.textContent.trim() : "", "已复制电话");
               return;
             }
 
